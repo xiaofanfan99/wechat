@@ -27,7 +27,7 @@ Route::get('wechat/tag_user_list','wechat\TagController@tag_user_list');//获取
 Route::get('wechat/push_tag_message','wechat\TagController@push_tag_message');//微信根据标签进行消息推送
 Route::post('wechat/do_push_tag_message','wechat\TagController@do_push_tag_message');//执行根据标签进行消息推送
 Route::get('wechat/tag_fans_list','wechat\TagController@tag_fans_list');//获取标签下粉丝列表
-Route::get('wechat/event','wechat\EventController@event');//接收微信发过来的消息【跟用户互动】
+
 
 
 //微信
