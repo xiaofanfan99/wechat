@@ -14,7 +14,34 @@
 Route::get('/', function () {
     return view('welcome');
 });
-<<<<<<< HEAD
+
+Route::get('wechat/tag_list','wechat\TagController@tag_list');//微信标签管理
+Route::get('wechat/add_tag','wechat\TagController@add_tag');//微信标签添加
+Route::post('wechat/do_add_tag','wechat\TagController@do_add_tag');//执行标签添加
+Route::get('wechat/del_tag/{id}','wechat\TagController@del_tag');//微信标签删除
+Route::get('wechat/upd_tag/{id}/{name}','wechat\TagController@upd_tag');//标签修改表单页
+Route::post('wechat/do_upd_tag/{id}','wechat\TagController@do_upd_tag');//标签修改执行
+Route::get('wechat/tag_fans_list','wechat\TagController@tag_fans_list');//获取标签下的粉丝列表
+Route::post('wechat/tag_openid','wechat\TagController@tag_openid');//批量给用户打标签
+Route::get('wechat/tag_user_list','wechat\TagController@tag_user_list');//获取粉丝下的标签列表
+Route::get('wechat/push_tag_message','wechat\TagController@push_tag_message');//微信根据标签进行消息推送
+Route::post('wechat/do_push_tag_message','wechat\TagController@do_push_tag_message');//执行根据标签进行消息推送
+Route::get('wechat/tag_fans_list','wechat\TagController@tag_fans_list');//获取标签下粉丝列表
+Route::get('wechat/event','wechat\EventController@event');//接收微信发过来的消息【跟用户互动】
+
+
+//微信
+Route::get('wechat/get_access_token','wechat\WechatController@get_access_token');
+Route::get('wechat/get_wechat_access_token','wechat\WechatController@get_wechat_access_token');//获取access_token
+Route::get('wechat/get_user_list','wechat\WechatController@get_user_list');//获取粉丝列表
+Route::get('wechat/get_user_info/{openid}','wechat\WechatController@get_user_info');//根据openID获取粉丝详细信息
+Route::any('wechat/qing','wechat\WechatController@qing');
+Route::get('wechat/upload_list','wechat\WechatController@upload_list');
+Route::get('wechat/clear_api','wechat\WechatController@clear_api');//清空调用频次
+Route::get('wechat/material','wechat\WechatController@material');//下载素材
+Route::get('wechat/push_template_message','wechat\WechatController@push_template_message');//微信模板消息推送
+
+
 //路由分组 路由前缀 首页
 Route::prefix('admin')->group(function () {
     Route::get('index','admin\IndexController@index');
@@ -88,11 +115,11 @@ Route::prefix('web')->middleware('auth')->group(function () {
     Route::post('update/{id}','WebColtroller@update');
 });
 //前台首页
-Route::get('/','index\IndexController@index'); 
+Route::get('/','index\IndexController@index');
 //前台登录页
 Route::prefix('index')->group(function(){
-    Route::get('login','index\LoginController@login'); 
-    Route::post('login_do','index\LoginController@login_do')->name('login_do'); 
+    Route::get('login','index\LoginController@login');
+    Route::post('login_do','index\LoginController@login_do')->name('login_do');
     Route::get('regist','index\LoginController@regist');
     Route::get('email','index\LoginController@email');
     Route::post('regist_do','index\LoginController@regist_do')->name('regist_do');
@@ -110,7 +137,6 @@ Route::get('wechat/wechat_login','wechat\LonginController@wechat_login');
 Route::get('wechat/code','wechat\LonginController@code');
 Route::get('wechat/upload','wechat\WechatController@upload');
 Route::post('wechat/do_upload','wechat\WechatController@do_upload');
-=======
 
 
 // 展示学生信息
@@ -153,4 +179,6 @@ Route::group(['middleware'=>['login']],function(){
 	// 展示添加学生信息表单
 	Route::get('/student/add','StudentController@add');
 });
->>>>>>> 79b07ba82916356e67e2497fa465680e99d306b0
+
+
+

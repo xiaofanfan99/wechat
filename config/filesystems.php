@@ -40,16 +40,11 @@ return [
     | Supported Drivers: "local", "ftp", "sftp", "s3", "rackspace"
     |
     */
-
     'disks' => [
 
         'local' => [
             'driver' => 'local',
-<<<<<<< HEAD
             'root' => storage_path('app'.DIRECTORY_SEPARATOR.'public'),
-=======
-            'root' => storage_path('app\public'),
->>>>>>> 79b07ba82916356e67e2497fa465680e99d306b0
         ],
 
         'public' => [
