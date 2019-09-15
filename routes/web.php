@@ -58,6 +58,7 @@ Route::post('admin/user_do','admin\IndexController@user_do')->name('user_do');
 Route::get('admin/upd/{id}','admin\IndexController@upd');
 Route::post('admin/update/{id}','admin\IndexController@update');
 
+
 //商品品牌添加
 Route::prefix('brand')->group(function () {
     //唯一性验证
