@@ -14,7 +14,7 @@ class EventController extends Controller
         $wechat_log_path=storage_path('logs/wechat/').date('Y-m-d').'.log';
         file_put_contents($wechat_log_path,"--------------------------\n",FILE_APPEND);
         file_put_contents($wechat_log_path,$xml_string,FILE_APPEND);
-        file_put_contents($wechat_log_path,"--------------------------\n\n",FILE_APPEND);
+        file_put_contents($wechat_log_path,"\n--------------------------\n\n",FILE_APPEND);
 
 
         $xml_obj=simplexml_load_string($xml_string);
