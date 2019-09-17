@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class Login
+class CheckLogin
 {
     /**
      * Handle an incoming request.
@@ -15,14 +15,13 @@ class Login
      */
     public function handle($request, Closure $next)
     {
-        // 前置中间件
-        $result = $request->session()->has('admin');
-        if ($result) {
-            echo "登陆成功!";
+        $usersession = request()->session()->get('usersession');
+//        dd($usersession);
+        if(!$usersession){
+            return redirect('message/login');
+        }else{
+            return redirect('message/user_list');
         }
-        $response = $next($request);
-        // 后置中间件
-        return $response;
-        // return $next($request);
+        return $next($request);
     }
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\wechat;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
+use const http\Client\Curl\Features\LARGEFILE;
 
 class EventController extends Controller
 {
@@ -15,10 +17,10 @@ class EventController extends Controller
         file_put_contents($wechat_log_path,"--------------------------\n",FILE_APPEND);
         file_put_contents($wechat_log_path,$xml_string,FILE_APPEND);
         file_put_contents($wechat_log_path,"\n--------------------------\n\n",FILE_APPEND);
-
-
-        $xml_obj=simplexml_load_string($xml_string);
-
+        $xml_obj=simplexml_load_string($xml_string,'SimpleXMLElement',LIBXML_NOCDATA);
+        $xml_arr=(array)$xml_obj;
+        \Log::Info(json_encode($xml_arr,JSON_UNESCAPED_UNICODE));
 //        echo $_GET['echostr'];
+
     }
 }

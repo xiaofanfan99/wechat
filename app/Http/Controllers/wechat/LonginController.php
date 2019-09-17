@@ -8,7 +8,7 @@ use DB;
 class LonginController extends Controller
 {
     //登录表单
-    public function login() 
+    public function login()
     {
         return view('wechat/login');
     }
@@ -19,7 +19,7 @@ class LonginController extends Controller
         $url="https://open.weixin.qq.com/connect/oauth2/authorize?appid=".env('WECHAT_APPID')."&redirect_uri=".urlencode($redirect_uri)."&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
         header('Location:'.$url);
     }
-    /** 
+    /**
      * 第二步 接收code
      */
     public function code()
@@ -49,16 +49,14 @@ class LonginController extends Controller
                 'email'=>$wechat_user_info['nickname'],
                 'password'=>"",
                 'openid'=>$openid
-            ]);                               
+            ]);
             // dump($user_id);
             $wechat_result=DB::table('wechat_user')->insert([
                 'user_id'=>$user_id,
                 'openid'=>$openid,
             ]);
-            // dump($wechat_result);
             $wechat_session=request()->session()->put('userid',$user_id['regist_id']);
             // echo "ok";
-            // echo "<script>alert('注册成功');</script>";
             return redirect('/');
         }
     }
