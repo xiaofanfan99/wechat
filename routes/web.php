@@ -32,17 +32,17 @@ Route::get('wechat/tag_fans_list','wechat\TagController@tag_fans_list');//获取
 //微信群发消息
 Route::get('message/login','wechat\MessageController@login');//群发留言登录页
 Route::get('message/do_login','wechat\MessageController@do_login');//进行微信登录执行页
-//Route::prefix('message')->middleware('checklogin')->group(function () {
-//    Route::get('code','wechat\MessageController@code');//接收code
-//    Route::get('user_list','wechat\MessageController@user_list');//留言列表 我的粉丝列表
-//    Route::post('message','wechat\MessageController@message');//留言内容填写页
-//});
+Route::prefix('message')->middleware('checklogin')->group(function () {
+    Route::get('code','wechat\MessageController@code');//接收code
+    Route::get('user_list','wechat\MessageController@user_list');//留言列表 我的粉丝列表
+    Route::post('message','wechat\MessageController@message');//留言内容填写页
+});
 
 
-Route::get('message/code','wechat\MessageController@code');//接收code
-Route::get('message/user_list','wechat\MessageController@user_list');//留言列表 我的粉丝列表
-Route::post('message/message','wechat\MessageController@message');//留言内容填写页
-Route::get('message/mess','wechat\MessageController@mess');//编写留言页面
+//Route::get('message/code','wechat\MessageController@code');//接收code
+//Route::get('message/user_list','wechat\MessageController@user_list');//留言列表 我的粉丝列表
+//Route::post('message/message','wechat\MessageController@message');//留言内容填写页
+//Route::get('message/mess','wechat\MessageController@mess');//编写留言页面
 
 Route::get('agent/agent_list','wechat\AgentController@agent_list');//用户列表
 Route::get('agent/create_qrcode','wechat\AgentController@create_qrcode');//获取专属二维码

@@ -22,7 +22,7 @@ class AgentController extends Controller
 //        dd($data);
         return view('agent.user_list',['info'=>$data]);
     }
-
+    //生成二维码
     public function create_qrcode(Request $request)
     {
         //获取 uid
@@ -46,7 +46,7 @@ class AgentController extends Controller
         DB::table('regist')->where(['regist_id'=>$scene_id['uid']])->update([
             'qrcode_url'=>'/storage'.$path,
         ]);
-//        return redirect('');
+        return redirect('agent/agent_list');
 
     }
 

@@ -44,12 +44,13 @@ class MessageController extends Controller
 //        dd($info);
         $openid=$info['openid'];
         $data=DB::table('regist')->where('openid',$openid)->first();
-        dd($data);
-        $da=json_decode($data,1);
+//        $dat=json_encode($data);
+//        $da=json_decode($dat,1);
        if(!empty($data)){
             //数据库存在则登录 存session
-            $user_session=request()->session()->put('usersession',$da['regist_id']);
-            echo "ok";
+            $request->session()->put('usersession',$data->regist_id);
+//            echo "ok";
+           return redirect('message/user_list');
        }else{
             //为空则添加
             $user_id=DB::table('regist')->insertGetId([
@@ -61,15 +62,14 @@ class MessageController extends Controller
                 'user_id'=>$user_id,
                 'openid'=>$openid,
             ]);
-           $user_session=request()->session()->put('usersession',$user_id['regist_id']);
-           echo "ok";
+           $request->session()->put('usersession',$data->regist_id);
+//           echo "ok";
+           return redirect('message/user_list');
        }
     }
     //留言主页 我的粉丝列表
     public function user_list(Request $request)
     {
-//        $usersession=$request->session()->get('usersession');
-//        dd($usersession);
         //获取粉丝列表
         $user_info=file_get_contents("https://api.weixin.qq.com/cgi-bin/user/get?access_token=".$this->tools->get_wechat_access_token()."&next_openid=");
         $info=json_decode($user_info,1);
