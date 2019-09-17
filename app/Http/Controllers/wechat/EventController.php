@@ -31,6 +31,5 @@ class EventController extends Controller
                 DB::table('regist')->where(['regist_id'=>$share_code])->increment('share_code',1);
             }
         }
-
     }
 }
