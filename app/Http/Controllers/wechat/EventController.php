@@ -14,6 +14,7 @@ class EventController extends Controller
     {
         //把数据存在logs里
         $xml_string = file_get_contents('php://input');//是个可以访问请求的原始数据的只读流
+//        dd($xml_string);
         // storage_path路径定位在跟目录下的storage下
         $wechat_log_path=storage_path('logs/wechat/').date('Y-m-d').'.log';
         //file_put_contents('写入文件的路径','文件内容','FILE_APPEND 意思不覆盖上次的文件 在文件末尾追加内容') 将内容写入文件中
@@ -25,18 +26,34 @@ class EventController extends Controller
         $xml_obj=simplexml_load_string($xml_string,'SimpleXMLElement',LIBXML_NOCDATA);
         //再强制转换为数组类型
         $xml_arr=(array)$xml_obj;
+//        dd($xml_arr['EventKey']);
+
         //把日志写入laravel框架
         \Log::Info(json_encode($xml_arr,JSON_UNESCAPED_UNICODE));
 //        echo $_GET['echostr'];
         //业务逻辑
         if($xml_arr['MsgType']=='event'){
-            //判断event=="subscribe"说明用户第一次扫码
             if($xml_arr['Event']=='subscribe'){
-                //取出二维码专属推荐码 取第一个元素专属码
-                $share_code = explode('_',$xml_arr['EventKey'])[1];
-                //数据库share_code字段自增加一
-                DB::table('regist')->where(['regist_id'=>$share_code])->increment('share_num',1);
+                $share_code=explode('_',$xml_arr['EventKey'])[1];
+                $user_openid=$xml_arr['FromUserName'];//粉丝openid
+                //判断是否已经关注过
+                $wechat_openid=DB::table('regist')->where(['regist_id'=>$user_openid])->first();
+                if(empty($wechat_openid)){
+                    DB::table('regist')->where(['regist_id'=>$share_code])->increment('share_num',1);
+                    DB::table('wechat_openid')->insert([
+                        'openid'=>$user_openid,
+
+                    ]);
+                }
+            }else{
+                $xml_str='<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[欢迎回来]]></Content></xml>';
+                echo $xml_str;
             }
         }
+        $message='欢迎关注';
+        $xml_str='<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
+        echo $xml_str;
+
+
     }
 }

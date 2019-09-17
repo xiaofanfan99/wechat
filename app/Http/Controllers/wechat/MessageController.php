@@ -8,7 +8,7 @@ use DB;
 use App\Tools\tools;
 class MessageController extends Controller
 {
-    public $client;
+    public $tools;
     // 封装公共方法调用redis
     public function __construct(Tools $tools)
     {
