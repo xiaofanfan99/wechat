@@ -47,9 +47,9 @@ class WorkController extends Controller
     public function add_tag()
     {
         //测试redis
-//        $redis = $this->tools->redis->get('news');
-//        $redis = json_decode($redis,1);
-////        dd($redis);
+//        $news=$this->tools->redis->get('news');
+//        $redis = json_decode($news,1);
+//        $url="https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token=".$this->tools->get_wechat_access_token();
 //        $data=[
 //            'filter'=>[
 //                'is_to_all'=>false,
@@ -60,7 +60,8 @@ class WorkController extends Controller
 //            ],
 //            'msgtype'=>'text',
 //        ];
-//        dd($data);
+//        $result=$this->tools->curl_post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
+//        dd($result);
         return view('work/add_tag');
     }
     //添加标签执行

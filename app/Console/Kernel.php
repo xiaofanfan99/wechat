@@ -24,13 +24,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-
         $schedule->call(function () {
             $tools= new Tools();
             \Log::info('测试任务调度');
             $news=$tools->redis->get('news');
             $redis = json_decode($news,1);
-            $url="https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token=".$this->tools->get_wechat_access_token();
+            $url="https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token=".$tools->get_wechat_access_token();
             $data=[
                 'filter'=>[
                     'is_to_all'=>false,
@@ -42,7 +41,7 @@ class Kernel extends ConsoleKernel
                 'msgtype'=>'text',
             ];
             $result=$tools->curl_post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
-        })->daily();
+        })->cron('* * * * *');
         // $schedule->command('inspire')
         //          ->hourly();
     }
