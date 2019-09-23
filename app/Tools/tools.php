@@ -23,7 +23,7 @@ class Tools {
         return $data;
     }
 
-    // 储存redis
+    // 储存redis access_token
     public function get_wechat_access_token()
     {
         //加入缓存
@@ -33,11 +33,31 @@ class Tools {
             return $this->redis->get($access_token_key);
         }else{
             //不存在
-            $result = file_get_contents('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.env("WECHAT_APPID").'&secret='.env('WECHAT_APPSECRIT').'');
+//            $result = file_get_contents('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxb57ccc35f1cd0968&secret=ade1d283ae95f9fe5b2f3f29d1bab999');
+            $result = file_get_contents('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.env('WECHAT_APPID').'&secret='.env('WECHAT_APPSECRIT').'');
             // 转化数组   1==true
             $re = json_decode($result,1);
             $this->redis->set($access_token_key,$re['access_token'],$re['expires_in']);//加入缓存
             return $re['access_token'];
+        }
+    }
+
+    // 储存redis jsapi_ticket
+    public function get_wechat_jsapi_ticket()
+    {
+        //加入缓存
+        $wechat_jsapi_ticket='wechat_jsapi_ticket';
+        if($this->redis->exists($wechat_jsapi_ticket)){
+            //存在
+            return $this->redis->get($wechat_jsapi_ticket);
+        }else{
+            //不存在
+//            $result = file_get_contents('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxb57ccc35f1cd0968&secret=ade1d283ae95f9fe5b2f3f29d1bab999');
+            $result = file_get_contents('https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token='.$this->get_wechat_access_token().'&type=jsapi');
+            // 转化数组   1==true
+            $re = json_decode($result,1);
+            $this->redis->set($wechat_jsapi_ticket,$re['ticket'],$re['expires_in']);//加入缓存
+            return $re['ticket'];
         }
     }
 

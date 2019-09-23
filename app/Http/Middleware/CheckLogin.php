@@ -16,8 +16,8 @@ class CheckLogin
     public function handle($request, Closure $next)
     {
         $usersession = request()->session()->get('usersession');
-//        dd($usersession);
-        if(!$usersession){
+// dd($usersession);
+        if($usersession==null){
             return redirect('message/login');
         }else{
             return redirect('message/user_list');

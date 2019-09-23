@@ -17,11 +17,13 @@
                 <tr>
                     <th>勾选被发送人</th>
                     <th>用户openid</th>
+                    <th>用户名称</th>
                 </tr>
-                @foreach($info['openid'] as $v)
+                @foreach($info as $v)
                     <tr>
-                        <td><input type="checkbox" value="{{$v}}" name="openid[]" ></td>
-                        <td>{{$v}}</td>
+                        <td><input type="checkbox" value="{{$v['openid']}}" name="openid[]" ></td>
+                        <td>{{$v['openid']}}</td>
+                        <td>{{$v['nickname']}}</td>
                     </tr>
                 @endforeach
             </table>

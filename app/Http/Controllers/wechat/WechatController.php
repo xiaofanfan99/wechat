@@ -23,6 +23,23 @@ class WechatController extends Controller
         $data=['appid'=>env('WECHAT_APPID')];
         $this->tools->curl_post($url,json_encode($data));
     }
+    //微信JS-SDK签名
+    public function location()
+    {
+        $appid=env('WECHAT_APPID');
+        //当前网页的URL
+        $url="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+        //随机字符串
+        $noncestr=rand(1000,9999).'fhx';
+        //时间戳
+        $timestamp=time();
+        //调用签名算法
+        $jsapi_ticket  = $this->tools->get_wechat_jsapi_ticket();
+        $sing_str = 'jsapi_ticket='.$jsapi_ticket.'&noncestr='.$noncestr.'&timestamp='.$timestamp.'&url='.$url.'';
+        $signature=sha1($sing_str);
+        return view('wechat.location',['appid'=>$appid,'noncestr'=>$noncestr,'signature'=>$signature,'timestamp'=>$timestamp]);
+    }
+
 
     /**
      * 微信模板消息推送
@@ -287,6 +304,10 @@ class WechatController extends Controller
      */
     public function get_user_list(Request $request)
     {
+//        //使用 easywechat 获取用户列表
+//        $app = app('wechat.official_account');
+//        $user_list = $app->user->list($nextOpenId = null);  // $nextOpenId 可选
+//        dd($user_list);
         //接收标签id
         $req=$request->all();
         $result = file_get_contents('https://api.weixin.qq.com/cgi-bin/user/get?access_token='.$this->tools->get_wechat_access_token().'&next_openid=');

@@ -10,9 +10,10 @@
 <body>
 <center>
     <h1>写留言</h1>
-    <form action="{{url('message/message')}}" method="post">
+    <form action="{{url('message/message_do')}}" method="post">
         @csrf
-        编写留言：<textarea name="" id="" cols="30" rows="10"></textarea>
+            <input type="hidden" name="openid" value="{{$openid}}">
+        编写留言：<textarea name="menu" id="" cols="30" rows="10"></textarea>
         <input type="submit" value="提交留言">
     </form>
 </center>

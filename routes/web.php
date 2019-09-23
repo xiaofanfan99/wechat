@@ -28,25 +28,44 @@ Route::get('wechat/push_tag_message','wechat\TagController@push_tag_message');//
 Route::post('wechat/do_push_tag_message','wechat\TagController@do_push_tag_message');//执行根据标签进行消息推送
 Route::get('wechat/tag_fans_list','wechat\TagController@tag_fans_list');//获取标签下粉丝列表
 
+Route::get('wechat/menu','wechat\MenuController@menu');//自定义菜单 根据数据库表数据来刷新菜单
+Route::get('wechat/menu_list','wechat\MenuController@menu_list');//自定义菜单添加/列表
+Route::post('wechat/create_menu','wechat\MenuController@create_menu');//添加执行页
+Route::get('wechat/menu_del','wechat\MenuController@menu_del');//菜单删除
+
+Route::get('wechat/location','wechat\WechatController@location');//JS-SDK签名
 
 //微信群发消息
 Route::get('message/login','wechat\MessageController@login');//群发留言登录页
 Route::get('message/do_login','wechat\MessageController@do_login');//进行微信登录执行页
-Route::prefix('message')->middleware('checklogin')->group(function () {
-    Route::get('code','wechat\MessageController@code');//接收code
-    Route::get('user_list','wechat\MessageController@user_list');//留言列表 我的粉丝列表
-    Route::post('message','wechat\MessageController@message');//留言内容填写页
-});
+Route::get('/message/code','wechat\MessageController@code');//接收code
+Route::get('message/user_list','wechat\MessageController@user_list');//留言列表 我的粉丝列表
+Route::post('message/message','wechat\MessageController@message');//留言内容填写页
+Route::post('message/message_do','wechat\MessageController@message_do');//群发留言执行页面
+//Route::prefix('message')->middleware('checklogin')->group(function () {
+//    Route::get('dcoe','wechat\MessageController@code');//接收code
+//    Route::get('user_list','wechat\MessageController@user_list');//留言列表 我的粉丝列表
+//    Route::post('message','wechat\MessageController@message');//留言内容填写页
+//});
+//Route::group(['middleware' => ['checklogin']], function () {
+//    Route::get('/message/user_list','wechat\MessageController@user_list');//留言列表 我的粉丝列表
+//    Route::post('message/message','wechat\MessageController@message');//留言内容填写页
+//});
 
-
-//Route::get('message/code','wechat\MessageController@code');//接收code
-//Route::get('message/user_list','wechat\MessageController@user_list');//留言列表 我的粉丝列表
-//Route::post('message/message','wechat\MessageController@message');//留言内容填写页
-//Route::get('message/mess','wechat\MessageController@mess');//编写留言页面
+//2019-9-21作业
+Route::get('work/login','wechat\WorkController@login');//微信登录表单页
+Route::get('work/login_do','wechat\WorkController@login_do');//调用微信登录接口方法 获取code
+Route::get('work/code','wechat\WorkController@code');//接收code码
+Route::get('work/user','wechat\WorkController@user');//获取用户列表
+Route::get('work/add_tag','wechat\WorkController@add_tag');//创建标签表单页
+Route::post('work/tag_do','wechat\WorkController@tag_do');//标签添加执行
+Route::get('work/tag_list','wechat\WorkController@tag_list');//标签列表
+Route::post('work/user_tag','wechat\WorkController@user_tag');//给用户打标签
+Route::get('work/news','wechat\WorkController@news');//根据标签跟用户进行群发消息
+Route::post('work/do_news','wechat\WorkController@do_news');//发送消息执行方法
 
 Route::get('agent/agent_list','wechat\AgentController@agent_list');//用户列表
 Route::get('agent/create_qrcode','wechat\AgentController@create_qrcode');//获取专属二维码
-
 //微信
 Route::get('wechat/get_access_token','wechat\WechatController@get_access_token');
 Route::get('wechat/get_wechat_access_token','wechat\WechatController@get_wechat_access_token');//获取access_token

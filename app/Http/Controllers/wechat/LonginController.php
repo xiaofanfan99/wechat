@@ -25,10 +25,9 @@ class LonginController extends Controller
     public function code()
     {
         $re=request()->all();
-        // dd($re['code']);
-        $result=file_get_contents('https://api.weixin.qq.com/sns/oauth2/access_token?appid='.env('WECHAT_APPID').'&secret='.env("WECHAT_APPSECRET").'&code='.$re["code"].'&grant_type=authorization_code');
+//        dd($re);
+        $result=file_get_contents('https://api.weixin.qq.com/sns/oauth2/access_token?appid='.env('WECHAT_APPID').'&secret='.env("WECHAT_APPSECRIT").'&code='.$re["code"].'&grant_type=authorization_code');
         $res=json_decode($result,1);
-        // dump($res);
         $user_info=file_get_contents('https://api.weixin.qq.com/sns/userinfo?access_token='.$res['access_token'].'&openid='.$res['openid'].'&lang=zh_CN');
         $wechat_user_info=json_decode($user_info,1);
         // dump($wechat_user_info);
