@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->call(function () {
             $tools= new Tools();
-            \Log::info('测试任务调度');
+
             $news=$tools->redis->get('news');
             $redis = json_decode($news,1);
             $url="https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token=".$tools->get_wechat_access_token();
@@ -41,6 +41,7 @@ class Kernel extends ConsoleKernel
                 'msgtype'=>'text',
             ];
             $result=$tools->curl_post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
+            \Log::info('测试任务调度'.$result);
         })->cron('* * * * *');
         // $schedule->command('inspire')
         //          ->hourly();
