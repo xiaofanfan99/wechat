@@ -46,22 +46,6 @@ class WorkController extends Controller
     //创建用户标签
     public function add_tag()
     {
-        //测试redis
-//        $news=$this->tools->redis->get('news');
-//        $redis = json_decode($news,1);
-//        $url="https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token=".$this->tools->get_wechat_access_token();
-//        $data=[
-//            'filter'=>[
-//                'is_to_all'=>false,
-//                'tag_id'=>$redis['filter']['tag_id'],
-//            ],
-//            'text'=>[
-//                'content'=>$redis['text']['content'],
-//            ],
-//            'msgtype'=>'text',
-//        ];
-//        $result=$this->tools->curl_post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
-//        dd($result);
         return view('work/add_tag');
     }
     //添加标签执行
@@ -89,7 +73,7 @@ class WorkController extends Controller
         $url=file_get_contents("https://api.weixin.qq.com/cgi-bin/tags/get?access_token=".$this->tools->get_wechat_access_token());
         $res=json_decode($url,1);
         //调用试图
-        return view('work.tag_list',['info'=>$res]);
+        return view('work/tag_list',['info'=>$res]);
     }
     /**
      * 获取用户列表

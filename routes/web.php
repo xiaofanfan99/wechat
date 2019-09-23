@@ -28,6 +28,10 @@ Route::get('wechat/push_tag_message','wechat\TagController@push_tag_message');//
 Route::post('wechat/do_push_tag_message','wechat\TagController@do_push_tag_message');//执行根据标签进行消息推送
 Route::get('wechat/tag_fans_list','wechat\TagController@tag_fans_list');//获取标签下粉丝列表
 
+//19-08月考测试题 微信签到领积分
+Route::get('sign/sign','wechat\EventController@sign');//微信签到
+
+
 Route::get('wechat/menu','wechat\MenuController@menu');//自定义菜单 根据数据库表数据来刷新菜单
 Route::get('wechat/menu_list','wechat\MenuController@menu_list');//自定义菜单添加/列表
 Route::post('wechat/create_menu','wechat\MenuController@create_menu');//添加执行页
@@ -64,9 +68,10 @@ Route::post('work/user_tag','wechat\WorkController@user_tag');//给用户打标�
 Route::get('work/news','wechat\WorkController@news');//根据标签跟用户进行群发消息
 Route::post('work/do_news','wechat\WorkController@do_news');//发送消息执行方法
 
+//生成专二维码
 Route::get('agent/agent_list','wechat\AgentController@agent_list');//用户列表
 Route::get('agent/create_qrcode','wechat\AgentController@create_qrcode');//获取专属二维码
-//微信
+// 获取微信粉丝 下载素材
 Route::get('wechat/get_access_token','wechat\WechatController@get_access_token');
 Route::get('wechat/get_wechat_access_token','wechat\WechatController@get_wechat_access_token');//获取access_token
 Route::get('wechat/get_user_list','wechat\WechatController@get_user_list');//获取粉丝列表

@@ -9,6 +9,15 @@ use const http\Client\Curl\Features\LARGEFILE;
 use DB;
 class EventController extends Controller
 {
+    //签到
+    public function sign()
+    {
+        /**
+         *  1:关注成功 回复消息（欢迎xx同学，感谢您的关注） 关注时需要获取用户的信息存入数据库 积分默认为0
+         *  2:生成两个自定义菜单 签到 & 积分查询 按钮
+         *  3:点击签到判断用户今天是否签到 strtotime();
+         */
+    }
     //接收微信发过来的消息[用户互动] 被动回复
     public function event()
     {

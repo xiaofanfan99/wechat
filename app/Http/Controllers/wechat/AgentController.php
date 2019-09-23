@@ -47,7 +47,6 @@ class AgentController extends Controller
             'qrcode_url'=>'/storage'.$path,
         ]);
         return redirect('agent/agent_list');
-
     }
 
 }
