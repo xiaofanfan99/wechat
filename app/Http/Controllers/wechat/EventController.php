@@ -50,6 +50,7 @@ class EventController extends Controller
         //判断第一次关注被动回复消息 关注逻辑
         if($xml_arr['MsgType'] == "event"){
             if($xml_arr['Event'] == "subscribe"){
+                //获取用户的详细信息
                 $user_info=file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$this->tools->get_wechat_access_token()."&openid=".$xml_arr['FromUserName']."&lang=zh_CN");
                 $user=json_decode($user_info,1);
                 //关注成功将用户的信息添加数据库
