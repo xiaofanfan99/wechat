@@ -47,15 +47,23 @@ class EventController extends Controller
         //把日志写入laravel框架
         \Log::Info(json_encode($xml_arr,JSON_UNESCAPED_UNICODE));
 //        echo $_GET['echostr'];
-        //判断第一次关注被动回复消息
-        if($xml_arr['MsgType']=="event"){
-            if($xml_arr['Event']=="subscribe"){
+        //判断第一次关注被动回复消息 关注逻辑
+        if($xml_arr['MsgType']=="event" && $xml_arr['Event']=="subscribe"){
                 $user_info=file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$this->tools->get_wechat_access_token()."&openid=".$xml_arr['FromUserName']."&lang=zh_CN");
                 $user=json_decode($user_info,1);
+                //关注成功将用户的信息添加数据库
+                //查询数据库是否存在
+                $db_user=DB::table('wechat_openid')->where(['openid'=>$xml_arr['FromUserName']])->first();
+                if(empty($db_user)){
+                    //不存在添加数据库
+                    $info=DB::table('wechat_openid')->insert([
+                        'openid'=>$xml_arr['FromUserName'],
+                        'add_time'=>time(),
+                    ]);
+                }
                 $message='欢迎关注！'.$user['nickname'];
                 $xml_str='<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                 echo $xml_str;
-            }
         }
         //业务逻辑
         if($xml_arr['MsgType']=='event'){
@@ -75,7 +83,7 @@ class EventController extends Controller
                 echo $xml_str;
             }
         }
-        //判断第一次关注被动回复消息
+        //用户发消息自动回复
         $message='欢迎关注 撒拉嘿呦！';
         $xml_str='<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
         echo $xml_str;
