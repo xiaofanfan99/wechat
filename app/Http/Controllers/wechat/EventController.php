@@ -16,6 +16,7 @@ class EventController extends Controller
          *  1:关注成功 回复消息（欢迎xx同学，感谢您的关注） 关注时需要获取用户的信息存入数据库 积分默认为0
          *  2:生成两个自定义菜单 签到 & 积分查询 按钮
          *  3:点击签到判断用户今天是否签到 strtotime();
+         *  4：
          */
     }
     //接收微信发过来的消息[用户互动] 被动回复
@@ -36,7 +37,6 @@ class EventController extends Controller
         //再强制转换为数组类型
         $xml_arr=(array)$xml_obj;
 //        dd($xml_arr['EventKey']);
-
         //把日志写入laravel框架
         \Log::Info(json_encode($xml_arr,JSON_UNESCAPED_UNICODE));
 //        echo $_GET['echostr'];
@@ -58,6 +58,7 @@ class EventController extends Controller
                 echo $xml_str;
             }
         }
+        //判断第一次关注被动回复消息
         $message='欢迎关注 撒拉嘿呦！';
         $xml_str='<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
         echo $xml_str;
