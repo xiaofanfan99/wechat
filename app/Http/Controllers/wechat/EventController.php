@@ -7,8 +7,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 use const http\Client\Curl\Features\LARGEFILE;
 use DB;
+use App\Tools\tools;
 class EventController extends Controller
 {
+    public $tools;
+    public function __construct(Tools $tools)
+    {
+        $this->tools=$tools;
+    }
+
     //签到
     public function sign()
     {
@@ -40,6 +47,16 @@ class EventController extends Controller
         //把日志写入laravel框架
         \Log::Info(json_encode($xml_arr,JSON_UNESCAPED_UNICODE));
 //        echo $_GET['echostr'];
+        //判断第一次关注被动回复消息
+        if($xml_arr['MsgType']=="event"){
+            if($xml_arr['Event']=="subscribe"){
+                $user_info=file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$this->tools->get_wechat_access_token()."&openid=".$xml_arr['FromUserName']."&lang=zh_CN");
+                $user=json_decode($user_info,1);
+                $message='欢迎关注！'.$user['nickname'];
+                $xml_str='<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
+                echo $xml_str;
+            }
+        }
         //业务逻辑
         if($xml_arr['MsgType']=='event'){
             if($xml_arr['Event']=='subscribe'){
