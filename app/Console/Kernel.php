@@ -25,12 +25,13 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->call(function () {
+            $tools = new Tools();
             //获取用户列表
-            $user_list = file_get_contents("https://api.weixin.qq.com/cgi-bin/user/get?access_token=" . $this->tools->get_wechat_access_token() . "&next_openid=");
+            $user_list = file_get_contents("https://api.weixin.qq.com/cgi-bin/user/get?access_token=" . $tools->get_wechat_access_token() . "&next_openid=");
             $user_res = json_decode($user_list, 1);
             foreach ($user_res['data']['openid'] as $v) {
                 //获取用户的详细信息
-                $user_info = file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token=" . $this->tools->get_wechat_access_token() . "&openid=" . $v . "&lang=zh_CN");
+                $user_info = file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token=" . $tools->get_wechat_access_token() . "&openid=" . $v . "&lang=zh_CN");
                 $user = json_decode($user_info, 1);
                 //查询数据库是否存在
                 $db_user = DB::table('wechat_openid')->where(['openid' => $v])->first();
@@ -41,7 +42,7 @@ class Kernel extends ConsoleKernel
                         'add_time' => time()
                     ]);
                     //就是未签到
-                    $url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" . $this->tools->get_wechat_access_token();
+                    $url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" . $tools->get_wechat_access_token();
                     $data = [
                         'touser' => $v,
                         'template_id' => "ulXe7l_78hvEU0gjlQSnPbFxi2kueNd-SYTH75EVNfU",
@@ -64,13 +65,13 @@ class Kernel extends ConsoleKernel
                             ],
                         ]
                     ];
-                    $this->tools->curl_post($url, json_encode($data, JSON_UNESCAPED_UNICODE));
+                    $tools->curl_post($url, json_encode($data, JSON_UNESCAPED_UNICODE));
                 } else {
                     //判断是否签到
                     $today = date('Y-m-d', time());
                     if ($db_user->sign_day == $today) {
                         //已经签到
-                        $url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" . $this->tools->get_wechat_access_token();
+                        $url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" . $tools->get_wechat_access_token();
                         $data = [
                             'touser' => $v,
                             'template_id' => "ulXe7l_78hvEU0gjlQSnPbFxi2kueNd-SYTH75EVNfU",
@@ -93,10 +94,10 @@ class Kernel extends ConsoleKernel
                                 ],
                             ]
                         ];
-                        $this->tools->curl_post($url, json_encode($data, JSON_UNESCAPED_UNICODE));
+                        $tools->curl_post($url, json_encode($data, JSON_UNESCAPED_UNICODE));
                     } else {
                         //未签到
-                        $url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" . $this->tools->get_wechat_access_token();
+                        $url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" . $tools->get_wechat_access_token();
                         $data = [
                             'touser' => $v,
                             'template_id' => "ulXe7l_78hvEU0gjlQSnPbFxi2kueNd-SYTH75EVNfU",
@@ -119,7 +120,7 @@ class Kernel extends ConsoleKernel
                                 ],
                             ]
                         ];
-                        $this->tools->curl_post($url, json_encode($data, JSON_UNESCAPED_UNICODE));
+                        $tools->curl_post($url, json_encode($data, JSON_UNESCAPED_UNICODE));
                     }
                 }
             }
