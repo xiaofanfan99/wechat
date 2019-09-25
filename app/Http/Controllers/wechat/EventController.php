@@ -47,6 +47,67 @@ class EventController extends Controller
         //把日志写入laravel框架
         \Log::Info(json_encode($xml_arr,JSON_UNESCAPED_UNICODE));
 //        echo $_GET['echostr'];
+        //签到逻辑
+        if($xml_arr['MsgType']=="event" && $xml_arr['Event']=="CLICK"){
+            if($xml_arr['EventKey']=="sign"){
+                //当天时间
+                $today = date('Y-m-d',time());
+                //昨天的日期
+                $last_day = date('Y-m-d',strtotime('-1 days'));
+                //查询数据库是否存在数据
+                $openid_info = DB::table("wechat_openid")->where(['openid'=>$xml_arr['FromUserName']])->first();
+                if(empty($openid_info)){
+                    //不存在添加数据库
+                    DB::table('wechat_openid')->insert([
+                        'openid'=>$xml_arr['FromUserName'],
+                        'add_time'=>time()
+                    ]);
+                }
+                $openid_info = DB::table("wechat_openid")->where(['openid'=>$xml_arr['FromUserName']])->first();
+                if($openid_info->sign_day == $today){
+                    //已签到
+                    $message='您已签到';
+                    $xml_str='<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
+                    echo $xml_str;
+                }else{
+                    //未签到  积分
+                    if($last_day == $openid_info->sign_day){
+                        //连续签到 五天一轮
+                        if($openid_info->sign_days >= 5){
+                            //签到天数大于5
+                            DB::table('wechat_openid')->where(['openid'=>$xml_arr['FromUserName']])->update([
+                                'sign_days'=>1,
+                                'score'=>$openid_info->score + 5,
+                                'sign_day'=>$today
+                            ]);
+                        }else{
+                            //小于5
+                            DB::table('wechat_openid')->where(['openid'=>$xml_arr['FromUserName']])->update([
+                                //连续天数=数据库签到数据+1
+                                'sign_days'=>$openid_info->sign_days+1,
+                                //积分=数据库的积分+5 乘 连续签到天数
+                                'score'=>$openid_info->score +5 * ($openid_info->sign_days +1),
+                                'sign_day'=>$today
+                            ]);
+                        }
+                    }else{
+                        //未连续签到 积分加5 签到天数变1
+                        DB::table('wechat_openid')->where(['openid'=>$xml_arr['FromUserName']])->update([
+                            'sign_days'=>1,
+                            'score'=> $openid_info->score +5,
+                            'sign_day'=>$today,
+                        ]);
+                    }
+                    $message='签到成功';
+                    $xml_str='<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
+                    echo $xml_str;
+                }
+            }
+            //查积分
+            if($xml_arr['EventKey']=="score"){
+
+            }
+        }
         //判断第一次关注被动回复消息 关注逻辑
         if($xml_arr['MsgType'] == "event"){
             if($xml_arr['Event'] == "subscribe"){
