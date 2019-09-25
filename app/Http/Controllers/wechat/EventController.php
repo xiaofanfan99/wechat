@@ -114,11 +114,11 @@ class EventController extends Controller
                         'add_time'=>time()
                     ]);
                 }
+                //查询数据库积分
                 $openid_info = DB::table("wechat_openid")->where(['openid'=>$xml_arr['FromUserName']])->first();
                 $message='您的积分为'.$openid_info->score.'。';
                 $xml_str='<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                 echo $xml_str;
-
             }
         }
         //判断第一次关注被动回复消息 关注逻辑
