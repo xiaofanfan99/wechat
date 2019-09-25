@@ -105,6 +105,19 @@ class EventController extends Controller
             }
             //查积分
             if($xml_arr['EventKey']=="score"){
+                //查询数据库是否存在数据
+                $openid_info = DB::table("wechat_openid")->where(['openid'=>$xml_arr['FromUserName']])->first();
+                if(empty($openid_info)){
+                    //不存在添加数据库
+                    DB::table('wechat_openid')->insert([
+                        'openid'=>$xml_arr['FromUserName'],
+                        'add_time'=>time()
+                    ]);
+                }
+                $openid_info = DB::table("wechat_openid")->where(['openid'=>$xml_arr['FromUserName']])->first();
+                $message='您的积分为'.$openid_info->score.'。';
+                $xml_str='<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
+                echo $xml_str;
 
             }
         }
