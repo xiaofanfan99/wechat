@@ -125,8 +125,8 @@ class Kernel extends ConsoleKernel
                     }
                 }
             }
-            //每天没分钟发送一次
-        })->cron('* * * * *');
+            //每天八点发送
+        })->dailyAt('20:00');
         $schedule->call(function () {
             $tools = new Tools();
             \Log::info('测试任务调度');
@@ -144,9 +144,8 @@ class Kernel extends ConsoleKernel
                 'msgtype' => 'text',
             ];
             $result = $tools->curl_post($url, json_encode($data, JSON_UNESCAPED_UNICODE));
+            //每天没分钟发送一次
         })->cron('* * * * *');
-        //每天八点发送
-//        })->dailyAt('20:00');
         // $schedule->command('inspire')
         //          ->hourly();
 //      }
