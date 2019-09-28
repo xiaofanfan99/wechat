@@ -17,6 +17,8 @@ class WorkController extends Controller
     //第三方授权登录
     public function login()
     {
+        $result = file_get_contents('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.env('WECHAT_APPID').'&secret='.env('WECHAT_APPSECRIT').'');
+        dd(json_decode($result,1));
         $user_info=file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$this->tools->get_wechat_access_token()."&openid=oReYCwm6xHPCiiUGiY9_tTZNBEf8&lang=zh_CN");
         $user=json_decode($user_info,1);
         dd($user);

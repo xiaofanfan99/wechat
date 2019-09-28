@@ -114,7 +114,7 @@ class EventController extends Controller
         if($xml_arr['MsgType'] == "event"){
             if($xml_arr['Event'] == "subscribe"){
                 //获取用户的详细信息
-                $user_info=file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$this->tools->get_wechat_access_token()."&openid=".$xml_arr['FromUserName']."&lang=zh_CN");
+                $user_info=file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token=25_Zi7i6gL3NGquRfNxqbNVhWr4LonejMR3veK4HazVgaEg1-o_0ACh19NIU_UsJ18P9u03dWg7G2xkV4JpdyNUvELAvgrSC4oa3ck_Wd21QT-fivEulI2lEh_5X_mLxtgoT5-4bcWoyxlk7gffEDWhAAARQJ&openid=".$xml_arr['FromUserName']."&lang=zh_CN");
                 $user=json_decode($user_info,1);
                 //关注成功将用户的信息添加数据库
                 //查询数据库是否存在
@@ -126,7 +126,7 @@ class EventController extends Controller
                         'add_time'=>time()
                     ]);
                 }
-                $message='您好'.'当前时间:'.date('Y-m-d H:i:s',time());
+                $message='您好'.$user['nickname'].'当前时间:'.date('Y-m-d H:i:s',time());
                 $xml_str='<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                 echo $xml_str;
             }
