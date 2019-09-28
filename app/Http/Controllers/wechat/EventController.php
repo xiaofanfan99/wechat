@@ -126,8 +126,7 @@ class EventController extends Controller
                         'add_time'=>time()
                     ]);
                 }
-                $time=date('Y-m-d H:i:s',time());
-                $message='您好'.$user['nickname'].'当前时间为'.$time;
+                $message='您好'.$user['nickname'];
                 $xml_str='<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                 echo $xml_str;
             }
