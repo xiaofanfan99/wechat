@@ -12,14 +12,14 @@ class Tools {
 //post获取
     public function curl_post($url,$data)
     {
-        $curl=curl_init($url);
+        $curl=curl_init($url);//初始化
         curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
         curl_setopt($curl,CURLOPT_POST,true);// 发送post
-        curl_setopt($curl,CURLOPT_POSTFIELDS,$data);
+        curl_setopt($curl,CURLOPT_POSTFIELDS,$data);//设置属性
         $erron = curl_errno($curl);//错误码
         $error = curl_error($curl);//错误信息
-        $data = curl_exec($curl);
-        curl_close($curl);
+        $data = curl_exec($curl);//执行并获取结果
+        curl_close($curl);//释放资源
         return $data;
     }
 

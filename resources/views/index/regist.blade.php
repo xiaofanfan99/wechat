@@ -76,7 +76,7 @@
                if(!password){
                     alert('密码必填');
                     return ;
-               }    
+               }
           })
 
           $('[type="button"]').click(function(){
@@ -92,8 +92,7 @@
                     alert('密码必填');
                     return false;
                }
-          })
 
+          })
      </script>
      @endsection
-     

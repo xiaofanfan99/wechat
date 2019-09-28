@@ -5,7 +5,7 @@ namespace App\Http\Controllers\wechat;
 use App\Tools\Tools;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use DB;
 class WorkController extends Controller
 {
     public $tools;

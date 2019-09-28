@@ -15,17 +15,6 @@ class EventController extends Controller
     {
         $this->tools=$tools;
     }
-
-    //签到
-    public function sign()
-    {
-        /**
-         *  1:关注成功 回复消息（欢迎xx同学，感谢您的关注） 关注时需要获取用户的信息存入数据库 积分默认为0
-         *  2:生成两个自定义菜单 签到 & 积分查询 按钮
-         *  3:点击签到判断用户今天是否签到 strtotime();
-         *  4：
-         */
-    }
     //接收微信发过来的消息[用户互动] 被动回复
     public function event()
     {
@@ -83,7 +72,7 @@ class EventController extends Controller
                         }else{
                             //小于5
                             DB::table('wechat_openid')->where(['openid'=>$xml_arr['FromUserName']])->update([
-                                //连续天数=数据库签到数据+1
+                                //连续天数=数据库签到数据+12
                                 'sign_days'=>$openid_info->sign_days+1,
                                 //积分=数据库的积分+5 乘 连续签到天数
                                 'score'=>$openid_info->score +5 * ($openid_info->sign_days +1),
@@ -129,15 +118,19 @@ class EventController extends Controller
                 $user=json_decode($user_info,1);
                 //关注成功将用户的信息添加数据库
                 //查询数据库是否存在
-                $db_user=DB::table('wechat_openid')->where(['openid'=>$xml_arr['FromUserName']])->first();
+//                $db_user=DB::table('wechat_openid')->where(['openid'=>$xml_arr['FromUserName']])->first();
+                //查询月考表
+                $db_user=DB::table('user_weixin')->where(['wechat_openid'=>$xml_arr['FromUserName']])->first();
                 if(empty($db_user)){
                     //不存在添加数据库
-                    DB::table('wechat_openid')->insert([
-                        'openid'=>$xml_arr['FromUserName'],
-                        'add_time'=>time()
+                    DB::table('user_weixin')->insert([
+                        'wechat_openid'=>$xml_arr['FromUserName'],
+                        'add_time'=>time(),
+                        'wechat_name'=>$user['nickname'],
+                        'city'=>$user['city']
                     ]);
                 }
-                $message='欢迎关注！'.$user['nickname'];
+                $message='您好'.$user['nickname']."当前时间为".date('Y-m-d H:i:s');
                 $xml_str='<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                 echo $xml_str;
             }
