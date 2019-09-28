@@ -17,6 +17,24 @@ class WorkController extends Controller
     //第三方授权登录
     public function login()
     {
+        $time=date('Y-m-d H:i:s',time());
+        dd($time);
+        $user_info=file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$this->tools->get_wechat_access_token()."&openid=oReYCwm6xHPCiiUGiY9_tTZNBEf8&lang=zh_CN");
+        $user=json_decode($user_info,1);
+        //关注成功将用户的信息添加数据库
+        //查询数据库是否存在
+//                $db_user=DB::table('wechat_openid')->where(['openid'=>$xml_arr['FromUserName']])->first();
+        $db_user=DB::table('user_weixin')->where(['wechat_openid'=>'oReYCwm6xHPCiiUGiY9_tTZNBEf8'])->first();
+        if(empty($db_user)){
+            //不存在添加数据库
+            DB::table('user_weixin')->insert([
+                'wechat_openid'=>'oReYCwm6xHPCiiUGiY9_tTZNBEf8',
+                'add_time'=>time(),
+                'wechat_name'=>$user['nickname'],
+                'city'=>$user['city']
+            ]);
+        }
+        dd();
         return view('work.login');
     }
 
