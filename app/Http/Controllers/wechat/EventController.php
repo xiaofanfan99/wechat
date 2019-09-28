@@ -120,16 +120,16 @@ class EventController extends Controller
                 //查询数据库是否存在
 //                $db_user=DB::table('wechat_openid')->where(['openid'=>$xml_arr['FromUserName']])->first();
                 //查询月考表
-                $db_user=DB::table('user_weixin')->where(['wechat_openid'=>$xml_arr['FromUserName']])->first();
-                if(empty($db_user)){
-                    //不存在添加数据库
-                    DB::table('user_weixin')->insert([
-                        'wechat_openid'=>$xml_arr['FromUserName'],
-                        'add_time'=>time(),
-                        'wechat_name'=>$user['nickname'],
-                        'city'=>$user['city']
-                    ]);
-                }
+//                $db_user=DB::table('user_weixin')->where(['wechat_openid'=>$xml_arr['FromUserName']])->first();
+//                if(empty($db_user)){
+//                    //不存在添加数据库
+//                    DB::table('user_weixin')->insert([
+//                        'wechat_openid'=>$xml_arr['FromUserName'],
+//                        'add_time'=>time(),
+//                        'wechat_name'=>$user['nickname'],
+//                        'city'=>$user['city']
+//                    ]);
+//                }
                 $message='您好'.$user['nickname']."当前时间为".date('Y-m-d H:i:s');
                 $xml_str='<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                 echo $xml_str;
