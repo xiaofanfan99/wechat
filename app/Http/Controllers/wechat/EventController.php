@@ -129,13 +129,13 @@ class EventController extends Controller
                 $message='您好'.$user['nickname'].'当前时间:'.date('Y-m-d H:i:s',time());
                 $xml_str='<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                 echo $xml_str;
-            }else{
-                $user_info=file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token=25_Zi7i6gL3NGquRfNxqbNVhWr4LonejMR3veK4HazVgaEg1-o_0ACh19NIU_UsJ18P9u03dWg7G2xkV4JpdyNUvELAvgrSC4oa3ck_Wd21QT-fivEulI2lEh_5X_mLxtgoT5-4bcWoyxlk7gffEDWhAAARQJ&openid=".$xml_arr['FromUserName']."&lang=zh_CN");
-                $user=json_decode($user_info,1);
-                $message='欢迎回来'.$user['nickname'].'当前时间:'.date('Y-m-d H:i:s',time());
-                $xml_str='<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
-                echo $xml_str;
             }
+        }else{
+            $user_info=file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token=25_Zi7i6gL3NGquRfNxqbNVhWr4LonejMR3veK4HazVgaEg1-o_0ACh19NIU_UsJ18P9u03dWg7G2xkV4JpdyNUvELAvgrSC4oa3ck_Wd21QT-fivEulI2lEh_5X_mLxtgoT5-4bcWoyxlk7gffEDWhAAARQJ&openid=".$xml_arr['FromUserName']."&lang=zh_CN");
+            $user=json_decode($user_info,1);
+            $message='欢迎回来'.$user['nickname'].'当前时间:'.date('Y-m-d H:i:s',time());
+            $xml_str='<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
+            echo $xml_str;
         }
 
         //业务逻辑
