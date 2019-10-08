@@ -15,6 +15,7 @@ class EventController extends Controller
     {
         $this->tools=$tools;
     }
+
     //接收微信发过来的消息[用户互动] 被动回复
     public function event()
     {
@@ -146,6 +147,7 @@ class EventController extends Controller
 
             }
         }
+
 
         //业务逻辑
 //        if($xml_arr['MsgType']=='event'){

@@ -15,6 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//api
+Route::get('hadmin/login','hadmin\LoginController@login');//登录页
+Route::get('hadmin/send','hadmin\LoginController@send');//接收验证码
+Route::get('hadmin/index','hadmin\IndexController@index');//后台主页
+Route::get('hadmin/binding','hadmin\LoginController@binding');//绑定账号
+Route::any('hadmin/binding_do','hadmin\LoginController@binding_do');//绑定账号执行页
+Route::post('hadmin/do_login','hadmin\LoginController@do_login');//登录执行页
+
 Route::get('wechat/tag_list','wechat\TagController@tag_list');//微信标签管理
 Route::get('wechat/add_tag','wechat\TagController@add_tag');//微信标签添加
 Route::post('wechat/do_add_tag','wechat\TagController@do_add_tag');//执行标签添加
