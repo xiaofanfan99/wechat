@@ -32,6 +32,26 @@ class LoginController extends Controller
     }
 
     /**
+     * 扫码登录
+     */
+    public function scanning()
+    {
+        $id=time().rand(1000,9999);
+        $url="http://47.94.97.172/hadmin/scanning_do?id=".$id;
+        //生成二维码的时候 加一个唯一标识
+        return view('hadmin.scanning',['url'=>$url,'id'=>$id]);
+    }
+
+    //扫码跳转页面 网页授权
+    public function scanning_do(Request $request)
+    {
+        $id=$request->all();
+        $openid=tools::getOpenid();
+        $this->tools->redis->set('wechatlogin_'.$id,$openid,10);
+        return "扫码登录成功，请稍等";
+    }
+
+    /**
      * 绑定账号执行页
      */
     public function binding_do(Request $request)

@@ -22,6 +22,8 @@ Route::get('hadmin/index','hadmin\IndexController@index');//后台主页
 Route::get('hadmin/binding','hadmin\LoginController@binding');//绑定账号
 Route::any('hadmin/binding_do','hadmin\LoginController@binding_do');//绑定账号执行页
 Route::post('hadmin/do_login','hadmin\LoginController@do_login');//登录执行页
+Route::get('hadmin/scanning','hadmin\LoginController@scanning');//微信扫码登录
+Route::get('hadmin/scanning_do','hadmin\LoginController@scanning_do');//微信扫码跳转页 网页授权
 
 Route::get('wechat/tag_list','wechat\TagController@tag_list');//微信标签管理
 Route::get('wechat/add_tag','wechat\TagController@add_tag');//微信标签添加
