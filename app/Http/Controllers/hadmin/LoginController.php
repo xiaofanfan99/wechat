@@ -45,7 +45,7 @@ class LoginController extends Controller
     //扫码跳转页面 网页授权
     public function scanning_do(Request $request)
     {
-        $id=$request->all();
+        $id=$request->id;
         $openid=tools::getOpenid();
         $this->tools->redis->set('wechatlogin_'.$id,$openid,10);
         return "扫码登录成功，请稍等";
