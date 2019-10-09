@@ -8,7 +8,6 @@
     <title>Document</title>
 </head>
 <body>
-
     <img src="http://qr.liantu.com/api.php?text={{$url}}"/>
 </body>
 </html>
