@@ -15,7 +15,7 @@
 <script src="{{asset('/jq.js')}}"></script>
 <script>
     //每隔几秒
-    var t= setInterval("check();",2000)
+    var t= setInterval("check();",2000);
     var id = {{$id}}
     function check(){
         //js轮询
@@ -23,12 +23,12 @@
             url:'{{url('hadmin/checkwechatlogin')}}',
             dataType:'',
             data:{id:id},
-            success:function (res) {
+            success:function(res) {
                 //扫码返回提示
-                if(res.ret==1){
+                if(res.ret == 1){
                     //关闭定时器
                       clearInterval(t);
-                      alert(res.ret);
+                      alert(res.msg);
                       location.href="{{url('hadmin/index')}}";
                 }
             }

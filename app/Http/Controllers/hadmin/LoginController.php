@@ -67,7 +67,6 @@ class LoginController extends Controller
         //登录成功储存session
         session(['admmininfo'=>$openid]);
         return json_encode(['ret'=>1,'msg'=>'用户已扫码']);
-
     }
 
     /**
