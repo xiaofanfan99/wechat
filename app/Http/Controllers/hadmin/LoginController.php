@@ -52,6 +52,25 @@ class LoginController extends Controller
     }
 
     /**
+     * js轮询检测，如果检测到用户扫码，则停止定时器并跳转 通过唯一标识查询有没有值
+     */
+    public function checkwechatlogin(Request $request)
+    {
+        //二维码唯一标识
+        $id=$request->id;
+        //取缓存 缓存里面有登录成功
+        $openid=$this->tools->redis->get('wechatlogin_'.$id);
+        if(!$openid){
+            //抛错
+            return json_encode(['ret'=>0,'msg'=>'用户未扫码']);
+        }
+        //登录成功储存session
+        session(['admmininfo'=>$openid]);
+        return json_encode(['ret'=>1,'msg'=>'用户已扫码']);
+
+    }
+
+    /**
      * 绑定账号执行页
      */
     public function binding_do(Request $request)

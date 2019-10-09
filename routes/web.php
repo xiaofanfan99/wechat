@@ -24,6 +24,7 @@ Route::any('hadmin/binding_do','hadmin\LoginController@binding_do');//绑定账�
 Route::post('hadmin/do_login','hadmin\LoginController@do_login');//登录执行页
 Route::get('hadmin/scanning','hadmin\LoginController@scanning');//微信扫码登录
 Route::get('hadmin/scanning_do','hadmin\LoginController@scanning_do');//微信扫码跳转页 网页授权
+Route::get('hadmin/checkwechatlogin','hadmin\LoginController@checkwechatlogin');//js轮询检测，如果检测到用户扫码，则停止定时器并跳转
 
 Route::get('wechat/tag_list','wechat\TagController@tag_list');//微信标签管理
 Route::get('wechat/add_tag','wechat\TagController@add_tag');//微信标签添加
