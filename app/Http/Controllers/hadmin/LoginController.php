@@ -37,7 +37,7 @@ class LoginController extends Controller
     public function scanning()
     {
         $id=time().rand(1000,9999);
-        $url="http://47.94.97.172/hadmin/scanning_do?id=".$id;
+        $url="http://fhx.distantplace.vip/hadmin/scanning_do?id=".$id;
         //生成二维码的时候 加一个唯一标识
         return view('hadmin.scanning',['url'=>$url,'id'=>$id]);
     }
