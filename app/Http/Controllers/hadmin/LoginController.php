@@ -43,10 +43,11 @@ class LoginController extends Controller
         $login_db=DB::table('login')->where(['username'=>$res['username']])->first();
         if(empty($login_db)){
 //            dd('用户名不存在');
-                echo "<script>alert('用户名不存在');history.go(-1);</script>";
+            echo "<script>alert('用户名不存在');history.go(-1);</script>";
         }else{
             if($res['password']!=$login_db->password){
-                dd('密码不正确');
+//                dd('密码不正确');
+                echo "<script>alert('密码不正确');history.go(-1);</script>";
             }else{
                 // 2判断是否已经绑定 已经绑定过提示
                 if(!$login_db->openid==0){

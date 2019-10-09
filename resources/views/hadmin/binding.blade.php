@@ -1,19 +1,29 @@
-<!doctype html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title> - 用户绑定</title>
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <base href="/hadmin/">
-    <link rel="shortcut icon" href="favicon.ico"> <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="css/font-awesome.css?v=4.4.0" rel="stylesheet">
-    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
-    <link href="css/animate.css" rel="stylesheet">
-    <link href="css/style.css?v=4.1.0" rel="stylesheet">
-</head>
-<body class="gray-bg">
-<center>
+@extends('layouts.hadmin')
+@section('title')用户绑定@endsection
+@section('content')
+{{--    <form class="form-horizontal" action="{{url('hadmin/binding_do')}}" method="post">--}}
+{{--        @csrf--}}
+{{--            <div style="margin-top:6%">--}}
+{{--                <h3>用户绑定</h3>--}}
+{{--                <div class="form-group">--}}
+{{--                    <label for="inputEmail3" class="col-sm-2 control-label">用户名：</label>--}}
+{{--                    <div class="col-xs-5">--}}
+{{--                        <input type="text" class="form-control" placeholder="用户名" id="inputEmail3" placeholder="Email" name="username">--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="form-group">--}}
+{{--                    <label for="inputPassword3" class="col-sm-2 control-label">密码：</label>--}}
+{{--                    <div class="col-xs-5">--}}
+{{--                        <input type="password" class="form-control" placeholder="密码" id="inputPassword3" placeholder="Password" name="password">--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="form-group">--}}
+{{--                    <div class="col-sm-offset-2 col-sm-10">--}}
+{{--                        <button type="submit" class="btn btn-primary"> 绑 定 </button>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--    </form>--}}
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-sm-6">
@@ -48,22 +58,6 @@
             </div>
         </div>
     </div>
-</center>
-<!-- 全局js -->
-<script src="js/jquery.min.js?v=2.1.4"></script>
-<script src="js/bootstrap.min.js?v=3.3.6"></script>
-<!-- 自定义js -->
-<script src="js/content.js?v=1.0.0"></script>
-<!-- iCheck -->
-<script src="js/plugins/iCheck/icheck.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('.i-checks').iCheck({
-            checkboxClass: 'icheckbox_square-green',
-            radioClass: 'iradio_square-green',
-        });
-    });
-</script>
-</body>
-</html>
+@endsection
+
 
