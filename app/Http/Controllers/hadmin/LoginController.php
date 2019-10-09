@@ -47,7 +47,7 @@ class LoginController extends Controller
     {
         $id=$request->id;
         $openid=tools::getOpenid();
-        $this->tools->redis->set('wechatlogin_'.$id,$openid,100);
+        $this->tools->redis->set('wechatlogin_'.$id,$openid,10);
         return "扫码登录成功，请稍等";
     }
 
