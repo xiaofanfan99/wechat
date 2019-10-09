@@ -21,7 +21,7 @@
         //js轮询
         $.ajax({
             url:'{{url('hadmin/checkwechatlogin')}}',
-            dataType:'',
+            dataType:'json',
             data:{id:id},
             success:function(res) {
                 //扫码返回提示
