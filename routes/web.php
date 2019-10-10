@@ -15,6 +15,26 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//微信接口
+Route::any('/test/test_add', function () {
+    return view('test.add');
+});
+//测试列表展示
+Route::any('/test/test_list', function () {
+    return view('test.test_list');
+});
+//测试编辑展示
+Route::any('/test/update', function () {
+    return view('test.update');
+});
+
+//微信添加接口
+Route::any('/api/test/add','api\TestController@test_add');//添加接口测试
+Route::any('/api/test/show','api\TestController@show');//查询接口
+Route::any('/api/test/find','api\TestController@find');//修改接口 查询默认值
+Route::any('/api/test/upd','api\TestController@upd');//执行修改接口
+Route::any('/api/test/delete','api\TestController@delete');//执行删除接口
+
 //api
 Route::get('hadmin/login','hadmin\LoginController@login');//登录页
 Route::get('hadmin/send','hadmin\LoginController@send');//接收验证码
