@@ -232,6 +232,3 @@ Route::group(['middleware'=>['login']],function(){
 	// 展示添加学生信息表单
 	Route::get('/student/add','StudentController@add');
 });
-
-
-

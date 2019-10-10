@@ -60,6 +60,7 @@ class LoginController extends Controller
         $id=$request->id;
         //取缓存 缓存里面有登录成功
         $openid=$this->tools->redis->get('wechatlogin_'.$id);
+        dd($openid);
         if(!$openid){
             //抛错
             return json_encode(['ret'=>0,'msg'=>'用户未扫码']);
