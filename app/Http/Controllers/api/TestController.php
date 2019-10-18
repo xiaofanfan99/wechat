@@ -40,12 +40,12 @@ class TestController extends Controller
     }
 
     /**
-     * 修改接口 查询默认值
-     * @param Request $request
-     */
+ * 修改接口 查询默认值
+ * @param Request $request
+ */
     public function find(Request $request)
     {
-        $id=$request->id;
+        $id=$request->input('id');
         $data=DB::table('test')->where(['test_id'=>$id])->first();
         //对象转数组
 //        $data = get_object_vars($data);
@@ -59,10 +59,12 @@ class TestController extends Controller
      */
     public function upd(Request $request)
     {
-        $data=$request->all();
-        $res=DB::table('test')->where(['test_id'=>$data['id']])->update([
-            'test_name'=>$data['name'],
-            'test_age'=>$data['age']
+        $name=$request->input('name');
+        $age=$request->input('age');
+        $id=$request->input('id');
+        $res=DB::table('test')->where(['test_id'=>$id])->update([
+            'test_name'=>$name,
+            'test_age'=>$age
         ]);
         if($res){
             return json_encode(['ret'=>1,'msg'=>'修改成功']);
@@ -75,7 +77,7 @@ class TestController extends Controller
      */
     public function delete(Request $request)
     {
-        $id=$request->id;
+        $id=$request->input('id');
         $res=DB::table('test')->where(['test_id'=>$id])->delete();
         if($res){
             return json_encode(['res'=>1,'msg'=>'删除成功']);

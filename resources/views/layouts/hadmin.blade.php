@@ -12,7 +12,6 @@
     <!-- 全局js -->
     <script src="js/jquery.min.js?v=2.1.4"></script>
     <script src="js/bootstrap.min.js?v=3.3.6"></script>
-    <script>if(window.top !== window.self){ window.top.location = window.location;}</script>
 </head>
 <body class="gray-bg">
 

@@ -9,6 +9,16 @@ class Tools {
         $this->redis = new \Redis();
         $this->redis->connect('127.0.0.1','6379');
     }
+
+    //无限级分类
+    public static function Createtree($data,$parent_id=0,$level=1)
+    {
+        foreach ($data as $key=>$value){
+            if($value['parent_id']==$parent_id){
+
+            }
+        }
+    }
 //post获取
     public function curl_post($url,$data)
     {

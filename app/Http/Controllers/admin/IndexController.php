@@ -10,7 +10,7 @@ use Illuminate\Validation\Rule;
 class IndexController extends Controller
 {
     public function index(){
-        return view('admin/index');
+        return view('admin/admin');
     }
     public function head(){
         // dd(1111);
@@ -74,14 +74,14 @@ class IndexController extends Controller
     }
     //会员名修改表单页
     public function upd($id)
-    {   
+    {
         $data=DB::table('admin_user')->where('user_id',$id)->first();
         // dd($data);
         return view('admin/upd',['data'=>$data]);
     }
 
     public function update($id)
-    {   
+    {
         $data=request()->except('_token');
         $data['password']=md5($data['password']);
         $data['add_time']=time();
@@ -110,5 +110,5 @@ class IndexController extends Controller
         // dd($stu);
         return redirect('admin/user_add');
     }
-    
+
 }

@@ -8,7 +8,9 @@
     <title>Document</title>
 </head>
 <body>
-    <img src="http://qr.liantu.com/api.php?text={{$url}}"/>
+    <div>
+        <img src="http://qr.liantu.com/api.php?text={{$url}}"/>
+    </div>
 </body>
 </html>
 <script src="{{asset('/jq.js')}}"></script>

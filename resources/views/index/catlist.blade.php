@@ -14,7 +14,7 @@
      @foreach ($data as $v)
      <div class="prolist">
       <dl>·
-       <dt><a href="{{url('index/proinfo/'.$v->goods_id)}}"><img src="{{env('UPLOAD_URL')}}{{$v->goods_img}}" width="100" height="100" /></a></dt>
+       <dt><a href="{{url('admin'.$v->goods_id)}}"><img src="{{env('UPLOAD_URL')}}{{$v->goods_img}}" width="100" height="100" /></a></dt>
        <dd>
         <h3><a href="{{url('index/proinfo/'.$v->goods_id)}}">{{$v->goods_name}}</a></h3>
         <div class="prolist-price"><strong>¥{{$v->goods_price}}</strong> <span>¥599</span></div>
@@ -22,7 +22,7 @@
        </dl>
        <div class="clearfix"></div>
       @endforeach
-      
+
      </div><!--prolist/-->
      <div class="height1"></div>
      <div class="footNav">

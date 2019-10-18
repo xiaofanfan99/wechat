@@ -47,8 +47,8 @@
   function updateSelectionStates(dualListbox) {
     dualListbox.element.find('option').each(function(index, item) {
       var $item = $(item);
-      if (typeof($item.data('original-index')) === 'undefined') {
-        $item.data('original-index', dualListbox.elementCount++);
+      if (typeof($item.data('original-admin')) === 'undefined') {
+        $item.data('original-admin', dualListbox.elementCount++);
       }
       if (typeof($item.data('_selected')) === 'undefined') {
         $item.data('_selected', false);
@@ -59,7 +59,7 @@
   function changeSelectionState(dualListbox, original_index, selected) {
     dualListbox.element.find('option').each(function(index, item) {
       var $item = $(item);
-      if ($item.data('original-index') === original_index) {
+      if ($item.data('original-admin') === original_index) {
         $item.prop('selected', selected);
       }
     });
@@ -152,7 +152,7 @@
         isFiltered = false;
         dualListbox.elements['select'+selectIndex].append($item.clone(true).prop('selected', $item.data('_selected')));
       }
-      dualListbox.element.find('option').eq($item.data('original-index')).data('filtered'+selectIndex, isFiltered);
+      dualListbox.element.find('option').eq($item.data('original-admin')).data('filtered'+selectIndex, isFiltered);
     });
 
     refreshInfo(dualListbox);
@@ -161,13 +161,13 @@
   function saveSelections(dualListbox, selectIndex) {
     dualListbox.elements['select'+selectIndex].find('option').each(function(index, item) {
       var $item = $(item);
-      dualListbox.element.find('option').eq($item.data('original-index')).data('_selected', $item.prop('selected'));
+      dualListbox.element.find('option').eq($item.data('original-admin')).data('_selected', $item.prop('selected'));
     });
   }
 
   function sortOptions(select) {
     select.find('option').sort(function(a, b) {
-      return ($(a).data('original-index') > $(b).data('original-index')) ? 1 : -1;
+      return ($(a).data('original-admin') > $(b).data('original-admin')) ? 1 : -1;
     }).appendTo(select);
   }
 
@@ -188,7 +188,7 @@
     dualListbox.elements.select1.find('option:selected').each(function(index, item) {
       var $item = $(item);
       if (!$item.data('filtered1')) {
-        changeSelectionState(dualListbox, $item.data('original-index'), true);
+        changeSelectionState(dualListbox, $item.data('original-admin'), true);
       }
     });
 
@@ -208,7 +208,7 @@
     dualListbox.elements.select2.find('option:selected').each(function(index, item) {
       var $item = $(item);
       if (!$item.data('filtered2')) {
-        changeSelectionState(dualListbox, $item.data('original-index'), false);
+        changeSelectionState(dualListbox, $item.data('original-admin'), false);
       }
     });
 

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="Author" contect="http://www.webqin.net">
-    <title>三级分销</title>
+    <title></title>
     <link rel="shortcut icon" href="/images/favicon.ico" />
     <!-- Bootstrap -->
     <link href="{{asset('/css/shop/bootstrap.min.css')}}" rel="stylesheet">

@@ -25,7 +25,7 @@
       <input type="submit" value="搜索" class="seaSub fr" />
      </form><!--search/-->
      <ul class="reg-login-click">
-      <li><a href="{{url('index/login')}}">登录</a></li>
+      <li><a href="{{url('admin')}}">登录</a></li>
       <li><a href="{{url('index/regist')}}" class="rlbg">注册</a></li>
       <div class="clearfix"></div>
      </ul><!--reg-login-click/-->
@@ -38,7 +38,7 @@
      <ul class="pronav">
      <!-- 一级分类 -->
      @foreach($cate as $v)
-      <li><a href="{{url('index/catlist/'.$v->cate_id)}}">{{$v->cate_name}}</a></li>
+      <li><a href="{{url('admin'.$v->cate_id)}}">{{$v->cate_name}}</a></li>
       @endforeach
       <div class="clearfix"></div>
      </ul><!--pronav/-->
@@ -85,7 +85,7 @@
      </div><!--prolist/-->
      <div class="joins"><a href="fenxiao.html"><img src="images/jrwm.jpg" /></a></div>
      <div class="copyright">Copyright &copy; <span class="blue">这是就是三级分销底部信息</span></div>
-     
+
      <div class="height1"></div>
      <div class="footNav">
       <dl>

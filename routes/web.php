@@ -14,7 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
 //微信接口
 Route::any('/test/test_add', function () {
     return view('test.add');
@@ -27,18 +26,56 @@ Route::any('/test/test_list', function () {
 Route::any('/test/update', function () {
     return view('test.update');
 });
+//资源控制器 接口测试
+Route::resource('api/user','api\UserController');//用户测试资源控制器
+//周测商品添加接口
+Route::any('/goods/add', function () {
+    return view('api.goods.add');
+});
+//商品展示
+Route::any('/goods/index', function () {
+    return view('api.goods.index');
+});
+//天气接口查询
+Route::any('/goods/weather', function () {
+    return view('api.goods.weather');
+});
+Route::any('/api/weather','api\GoodsController@weather');//添加接口测试
+Route::resource('api/goods','api\GoodsController');//商品添加资源控制器接口
 
 //微信添加接口
-Route::any('/api/test/add','api\TestController@test_add');//添加接口测试
-Route::any('/api/test/show','api\TestController@show');//查询接口
-Route::any('/api/test/find','api\TestController@find');//修改接口 查询默认值
-Route::any('/api/test/upd','api\TestController@upd');//执行修改接口
-Route::any('/api/test/delete','api\TestController@delete');//执行删除接口
+//Route::any('/api/test/add','api\TestController@test_add');//添加接口测试
+//Route::any('/api/test/show','api\TestController@show');//查询接口
+//Route::any('/api/test/find','api\TestController@find');//修改接口 查询默认值
+//Route::any('/api/test/upd','api\TestController@upd');//执行修改接口
+//Route::any('/api/test/delete','api\TestController@delete');//执行删除接口
+/**
+ * api项目后台
+ */
+Route::get('hadmin/cate_add','hadmin\CateController@cate_add');//商品分类添加
+Route::post('hadmin/cate_do','hadmin\CateController@cate_do');//商品分类添加执行
+Route::get('hadmin/cate_only','hadmin\CateController@cate_only');//商品分类唯一
+Route::get('hadmin/cate_list','hadmin\CateController@cate_list');//商品分类列表
+Route::get('hadmin/type_add','hadmin\TypeController@type_add');//商品类型添加
+Route::post('hadmin/type_do','hadmin\TypeController@type_do');//商品类型添加执行
+Route::get('hadmin/type_list','hadmin\TypeController@type_list');//商品类型列表
+Route::get('hadmin/attr_add','hadmin\AttrController@attr_add');//商品属性添加
+Route::post('hadmin/attr_do','hadmin\AttrController@attr_do');//商品属性添加
+Route::get('hadmin/attr_list','hadmin\AttrController@attr_list');//商品属性列表
+Route::get('hadmin/delall','hadmin\AttrController@delall');//商品属性批量删除
+Route::get('hadmin/type_search','hadmin\AttrController@type_search');//根据商品类型进行搜索
+Route::get('hadmin/goods_add','hadmin\GoodsController@goods_add');//商品添加
+Route::get('hadmin/goods_getattr','hadmin\GoodsController@goods_getattr');//根据商品类型查询类型下的属性
+Route::post('hadmin/goods_do','hadmin\GoodsController@goods_do');//商品添加执行
+Route::get('hadmin/goods_list','hadmin\GoodsController@goods_list');//商品列表展示
+Route::get('hadmin/goods_name_change','hadmin\GoodsController@goods_name_change');//商品名称即点即改
+Route::get('hadmin/sku_add','hadmin\GoodsController@sku_add');//商品货品添加
+Route::post('hadmin/sku_do','hadmin\GoodsController@sku_do');//商品货品添加执行
 
 //api
 Route::get('hadmin/login','hadmin\LoginController@login');//登录页
 Route::get('hadmin/send','hadmin\LoginController@send');//接收验证码
-Route::get('hadmin/index','hadmin\IndexController@index');//后台主页
+Route::get('hadmin/index','hadmin\AdminController@index');//后台主页
 Route::get('hadmin/binding','hadmin\LoginController@binding');//绑定账号
 Route::any('hadmin/binding_do','hadmin\LoginController@binding_do');//绑定账号执行页
 Route::post('hadmin/do_login','hadmin\LoginController@do_login');//登录执行页

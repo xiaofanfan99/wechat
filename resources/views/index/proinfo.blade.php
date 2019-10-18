@@ -29,7 +29,7 @@
      <div id="sliderA" class="slider">
       <img src="{{env('UPLOAD_URL')}}{{$goods->goods_img}}"/>
       <img src="{{env('UPLOAD_URL')}}{{$goods->goods_img}}"/>
-      
+
      </div><!--sliderA/-->
      <table class="jia-len">
       <tr>
@@ -117,7 +117,7 @@
     //获取商品价格
     var goods_price=$(this).attr('goods_price');
     $.ajax({
-      url:"{{url('index/car')}}",
+      url:"{{url('admin')}}",
       data:{goods_number:goods_number,goods_id:goods_id,goods_price:goods_price},
       success:function(msg){
         if(msg.ret=='00000'){

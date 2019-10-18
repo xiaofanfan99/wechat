@@ -18,7 +18,7 @@ class LoginController extends Controller
 	{
 		$req = $request->all();
 		$request->session()->put('admin','admin');
-		return redirect('student/index');
+		return redirect('student/admin');
 	}
 
 	// 注册表单
