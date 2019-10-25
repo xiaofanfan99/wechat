@@ -55,7 +55,7 @@ class TestController extends Controller
     }
 
     /**
-     * 测试接口修改
+     * 测试接口修改执行页
      */
     public function upd(Request $request)
     {

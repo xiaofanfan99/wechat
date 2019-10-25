@@ -11,6 +11,7 @@
     <center>
         <h1>微信标签列表</h1>
         <a href="{{url('work/user')}}">用户列表</a>
+        <a href="{{url('work/add_tag')}}">创建标签</a>
         <table border="1">
             <tr>
                 <th>标签id</th>

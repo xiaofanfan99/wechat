@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Goods extends Model
 {
-    /**
+    /** 商品模型
      * 关联到模型的数据表
      *
      * @var string

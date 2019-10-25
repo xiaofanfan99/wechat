@@ -63,8 +63,7 @@ class GoodsController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
+     *商品添加执行页
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */

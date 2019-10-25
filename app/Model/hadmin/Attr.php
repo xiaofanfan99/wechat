@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Attr extends Model
 {
     //商品接口
-    /**
+    /**商品属性模型
      * 关联到模型的数据表
      *
      * @var string

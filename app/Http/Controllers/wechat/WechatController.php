@@ -90,7 +90,7 @@ class WechatController extends Controller
             DB::table('url_upload')->where(['upload_id'=>$req['upload_id']])->update([
                 'path'=>'/storage/wechat/'.$source_info->type.'/'.$source_info->file_name,
             ]);
-            dd('ok');
+            return redirect('wechat/upload_list');
         }
         $result = json_decode($re,1);
         //设置超时参数
@@ -108,7 +108,7 @@ class WechatController extends Controller
         DB::table('url_upload')->where(['id'=>$req['id']])->update([
             'path'=>'/storage/wechat/'.$source_info->type.'/'.$source_info->file_name,
         ]);
-        dd('ok');
+        return redirect('wechat/upload_list');
         //Storage::put('file.mp3', $re);
     }
 
@@ -150,7 +150,7 @@ class WechatController extends Controller
                 }
             }
         if($type=="video"){
-                if($ext!="mp4"){
+                if($ext!="MP4"){
                     dd('视频格式不正确');
                 }
                 if($size>10){

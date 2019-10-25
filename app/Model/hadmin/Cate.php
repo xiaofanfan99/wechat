@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Cate extends Model
 {
     //商品接口
-    /**
+    /** 商品分类模型
      * 关联到模型的数据表
      *
      * @var string

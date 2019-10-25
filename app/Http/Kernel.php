@@ -8,7 +8,7 @@ class Kernel extends HttpKernel
 {
     /**
      * The application's global HTTP middleware stack.
-     *
+     *所有的路由自动加载
      * These middleware are run during every request to your application.
      *
      * @var array
@@ -23,7 +23,7 @@ class Kernel extends HttpKernel
 
     /**
      * The application's route middleware groups.
-     *
+     *所有的路由组会自动加载
      * @var array
      */
     protected $middlewareGroups = [
@@ -45,7 +45,7 @@ class Kernel extends HttpKernel
 
     /**
      * The application's route middleware.
-     *
+     *       手动加载
      * These middleware may be assigned to groups or used individually.
      *
      * @var array
@@ -62,13 +62,15 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'login'=> \App\Http\Middleware\Login::class,
         'checklogin'=>\App\Http\Middleware\CheckLogin::class,
+        'apiheader'=>\App\Http\Middleware\Api::class,
+        'tokenlogin'=>\App\Http\Middleware\TokenLogin::class,
     ];
 
     /**
      * The priority-sorted list of middleware.
      *
      * This forces non-global middleware to always be in the given order.
-     *
+     *中间件加载的顺序
      * @var array
      */
     protected $middlewarePriority = [

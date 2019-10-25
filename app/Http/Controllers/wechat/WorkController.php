@@ -17,12 +17,9 @@ class WorkController extends Controller
     //第三方授权登录
     public function login()
     {
-
-
         dd();
         return view('work.login');
     }
-
     //调用微信第三方登录
     public function login_do()
     {

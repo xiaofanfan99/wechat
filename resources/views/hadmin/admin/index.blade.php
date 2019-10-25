@@ -58,10 +58,21 @@
                     </a>
                 </li>
                 <li>
+                    <a class="J_menuItem" href="{{url('hadmin/login')}}">
+                        <i class="fa fa-home"></i>
+                        <span class="nav-label">微信登录扫码登录</span>
+                    </a>
+                </li>
+                <li>
                     <a class="J_menuItem" href="{{url('/goods/weather')}}">
                         <i class="fa fa-table"></i>
                         <span class="nav-label">一周天气查看</span>
                     </a>
+                </li>
+
+                <li class="line dk"></li>
+                <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+                    <span class="ng-scope">后台管理</span>
                 </li>
                 <li>
                     <a href="#">
@@ -73,16 +84,15 @@
                         <li>
                             <a class="J_menuItem" href="{{url('hadmin/goods_add')}}">商品添加</a>
                         </li>
+                        <li>
+                            <a class="J_menuItem" href="{{url('hadmin/goods_list')}}">商品列表</a>
+                        </li>
                     </ul>
                     <ul class="nav nav-second-level">
                         <li>
                             <a class="J_menuItem" href="{{url('hadmin/sku_add')}}">货品添加</a>
                         </li>
                     </ul>
-                </li>
-                <li class="line dk"></li>
-                <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
-                    <span class="ng-scope">分类</span>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">商品分类</span><span class="fa arrow"></span></a>
@@ -102,10 +112,6 @@
                         </li>
                     </ul>
                 </li>
-                <li class="line dk"></li>
-                <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
-                    <span class="ng-scope">分类</span>
-                </li>
                 <li>
                     <a href="#"><i class="fa fa-flask"></i> <span class="nav-label">商品属性</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
@@ -115,41 +121,53 @@
                         </li>
                     </ul>
                 </li>
+                <li class="line dk"></li>
+                <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+                    <span class="ng-scope">api接口测试</span>
+                </li>
                 <li>
-                    <a href="#"><i class="fa fa-table"></i> <span class="nav-label">表格</span><span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-table"></i> <span class="nav-label">api接口测试</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li><a class="J_menuItem" href="table_basic.html">基本表格</a>
+                        <li><a class="J_menuItem" href="{{url('/test/test_add')}}">测试接口添加</a></li>
+                        <li><a class="J_menuItem" href="{{url('/test/test_list')}}">测试接口列表</a></li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-picture-o"></i> <span class="nav-label">api周测</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a class="J_menuItem" href="{{url('/goods/add')}}">商品添加</a>
                         </li>
-                        <li><a class="J_menuItem" href="table_data_tables.html">DataTables</a>
-                        </li>
-                        <li><a class="J_menuItem" href="table_jqgrid.html">jqGrid</a>
-                        </li>
-                        <li><a class="J_menuItem" href="table_foo_table.html">Foo Tables</a>
-                        </li>
-                        <li><a class="J_menuItem" href="table_bootstrap.html">Bootstrap Table
-                                <span class="label label-danger pull-right">推荐</span></a>
+                        <li><a class="J_menuItem" href="{{url('/goods/index')}}">商品列表</a>
                         </li>
                     </ul>
                 </li>
                 <li class="line dk"></li>
                 <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
-                    <span class="ng-scope">分类</span>
+                    <span class="ng-scope">微信</span>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-picture-o"></i> <span class="nav-label">相册</span><span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-magic"></i><span class="nav-label">微信公众号开发</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li><a class="J_menuItem" href="basic_gallery.html">基本图库</a>
-                        </li>
-                        <li><a class="J_menuItem" href="carousel.html">图片切换</a>
-                        </li>
-                        <li><a class="J_menuItem" href="blueimp.html">Blueimp相册</a>
-                        </li>
+                        <li><a class="J_menuItem" href="{{url('/wechat/get_user_list')}}">获取粉丝列表</a></li>
                     </ul>
-                </li>
+                    <ul class="nav nav-second-level">
+                        <li><a class="J_menuItem" href="{{url('/wechat/upload_list')}}">素材管理</a></li>
+                    </ul>
+                    <ul class="nav nav-second-level">
+                        <li><a class="J_menuItem" href="{{url('/agent/agent_list')}}">生成用户专属二维码</a></li>
+                    </ul>
+                    <ul class="nav nav-second-level">
+                        <li><a class="J_menuItem" href="{{url('/work/tag_list')}}">微信用户标签列表</a></li>
+                    </ul>
+                    <ul class="nav nav-second-level">
+                        <li><a class="J_menuItem" href="{{url('/wechat/menu_list')}}">微信自定义菜单管理</a></li>
+                    </ul>
+                    <ul class="nav nav-second-level">
+                        <li><a class="J_menuItem" href="{{url('/wechat/login')}}">微信登录</a></li>
+                    </ul>
                 <li>
-                    <a class="J_menuItem" href="css_animation.html"><i class="fa fa-magic"></i> <span class="nav-label">CSS动画</span></a>
-                </li>
-                <li>
+
                     <a href="#"><i class="fa fa-cutlery"></i> <span class="nav-label">工具 </span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li><a class="J_menuItem" href="form_builder.html">表单构建器</a>

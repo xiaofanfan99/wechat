@@ -32,6 +32,7 @@
     </form>
     <script>
         var flag=false;
+        //分类添加失去焦点判断唯一性
         $('.cate-name').blur(function () {
             var cate_name=$('[name="cate_name"]').val();
             $.ajax({

@@ -13,8 +13,6 @@ class StudentController extends Controller
 		$redis->incr('num');
 		$num=$redis->get('num');
 		echo "浏览次数：$num";
-
-
 		$req = $request->all();
 		$search = "";
 		if (!empty($req['search'])) {
@@ -24,7 +22,7 @@ class StudentController extends Controller
 			$data = DB::table('student')->paginate(5);
 		}
 		/* 展示列表 */
-		
+
 		return view('studentList',['student'=>$data,'search'=>$search]);
 	}
 

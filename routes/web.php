@@ -36,12 +36,25 @@ Route::any('/goods/add', function () {
 Route::any('/goods/index', function () {
     return view('api.goods.index');
 });
-//天气接口查询
+//天气查询展示页
 Route::any('/goods/weather', function () {
     return view('api.goods.weather');
 });
-Route::any('/api/weather','api\GoodsController@weather');//添加接口测试
+Route::any('/api/weather','api\GoodsController@weather');//天气查询接口
 Route::resource('api/goods','api\GoodsController');//商品添加资源控制器接口
+
+Route::prefix('api/hadmin')->middleware('apiheader')->group(function () {
+    Route::resource('new','hadmin\IndexController');//商品添加资源控制器接口
+    Route::get('details','hadmin\IndexController@details');//前台商品详情页
+    Route::get('goods_show','hadmin\IndexController@goods_show');//前台商品列表页
+    Route::get('login','hadmin\UserController@login');//前台登录接口
+    Route::get('get_user','hadmin\UserController@getUser');//前台传token 后台验证token
+    Route::get('test','hadmin\UserController@test');//签名接口测试
+    Route::middleware('tokenlogin')->group(function () {
+        Route::get('goods_cart_add', 'hadmin\IndexController@GoodsCartAdd');//购物车接口
+        Route::get('cart_list', 'hadmin\IndexController@cart_list');//购物车列表
+    });
+});
 
 //微信添加接口
 //Route::any('/api/test/add','api\TestController@test_add');//添加接口测试
@@ -72,6 +85,7 @@ Route::get('hadmin/goods_name_change','hadmin\GoodsController@goods_name_change'
 Route::get('hadmin/sku_add','hadmin\GoodsController@sku_add');//商品货品添加
 Route::post('hadmin/sku_do','hadmin\GoodsController@sku_do');//商品货品添加执行
 
+
 //api
 Route::get('hadmin/login','hadmin\LoginController@login');//登录页
 Route::get('hadmin/send','hadmin\LoginController@send');//接收验证码
@@ -83,6 +97,8 @@ Route::get('hadmin/scanning','hadmin\LoginController@scanning');//微信扫码�
 Route::get('hadmin/scanning_do','hadmin\LoginController@scanning_do');//微信扫码跳转页 网页授权
 Route::get('hadmin/checkwechatlogin','hadmin\LoginController@checkwechatlogin');//js轮询检测，如果检测到用户扫码，则停止定时器并跳转
 
+
+//微信
 Route::get('wechat/tag_list','wechat\TagController@tag_list');//微信标签管理
 Route::get('wechat/add_tag','wechat\TagController@add_tag');//微信标签添加
 Route::post('wechat/do_add_tag','wechat\TagController@do_add_tag');//执行标签添加
@@ -99,12 +115,10 @@ Route::get('wechat/tag_fans_list','wechat\TagController@tag_fans_list');//获取
 //19-08月考测试题 微信签到领积分
 Route::get('sign/sign','wechat\EventController@sign');//微信签到
 
-
 Route::get('wechat/menu','wechat\MenuController@menu');//自定义菜单 根据数据库表数据来刷新菜单
 Route::get('wechat/menu_list','wechat\MenuController@menu_list');//自定义菜单添加/列表
 Route::post('wechat/create_menu','wechat\MenuController@create_menu');//添加执行页
 Route::get('wechat/menu_del','wechat\MenuController@menu_del');//菜单删除
-
 Route::get('wechat/location','wechat\WechatController@location');//JS-SDK签名
 
 //微信群发消息
@@ -144,7 +158,6 @@ Route::get('wechat/get_access_token','wechat\WechatController@get_access_token')
 Route::get('wechat/get_wechat_access_token','wechat\WechatController@get_wechat_access_token');//获取access_token
 Route::get('wechat/get_user_list','wechat\WechatController@get_user_list');//获取粉丝列表
 Route::get('wechat/get_user_info/{openid}','wechat\WechatController@get_user_info');//根据openID获取粉丝详细信息
-Route::any('wechat/qing','wechat\WechatController@qing');
 Route::get('wechat/upload_list','wechat\WechatController@upload_list');
 Route::get('wechat/clear_api','wechat\WechatController@clear_api');//清空调用频次
 Route::get('wechat/material','wechat\WechatController@material');//下载素材

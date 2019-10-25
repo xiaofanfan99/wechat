@@ -57,7 +57,7 @@ class GoodsController extends Controller
 //        }
         if($file){
             //上传文件
-            $store_result = $file->store('storage/hadmin/'.'photo');
+            $store_result = $file->store('hadmin');
         }else{
             $store_result=0;
         }
@@ -67,7 +67,7 @@ class GoodsController extends Controller
             'goods_name'=>$postData['goods_name'],
             'goods_price'=>$postData['goods_price'],
             'cate_id'=>$postData['cat_id'],
-            'goods_img'=>$store_result,
+            'goods_img'=>'/storage/'.$store_result,
             'details'=>$postData['details']
         ]);
         $goods_id=$goodsData->goods_id;
@@ -95,7 +95,7 @@ class GoodsController extends Controller
      */
     public function goods_list(Request $request)
     {
-        phpinfo();
+//        phpinfo();
         $goods_name=$request->input('goods_name');
         $cate_id=$request->input('cate_name');
         $where=[];
@@ -144,7 +144,6 @@ class GoodsController extends Controller
         $goodsData=Goods::where(['goods_id'=>$goods_id])->get()->toArray();
         //根据goods_id查询商品-属性关联表
         $goodsAttr=GoodsAttr::join('attribute','attribute.attr_id','=','goodsattr.attr_id')->where(['goods_id'=>$goods_id,'optional'=>1])->get()->toArray();
-//        var_dump($goodsAttr);
         $array=[];
         foreach ($goodsAttr as $key=>$value){
             //根据商品属性名分类
@@ -162,30 +161,42 @@ class GoodsController extends Controller
     public function sku_do(Request $request)
     {
         $attr_data=$request->input();
+        $product_numbers=\request()->input('product_number');
         //接收商品的id
         $goods_id=$attr_data['goods_id'];
         $product_number=rand(1000,9999).time();
+//        if(array_key_exists('sku_attr_list',$attr_data)){
+//            echo "!23";die;
+//        }else{
+//            dd(1234);
+//        }
 //        echo "<pre>";
-        //计算出有几个属性值
-        $size= count($attr_data['sku_attr_list']) / count($attr_data['product_number']);
-        // array_chunk() 把数组分割为新的数组块 每个属性对应
-        $sku_attr_list = array_chunk($attr_data['sku_attr_list'],$size);
-        //添加货品sku表商品数据
-        $test=1;
-        foreach ($sku_attr_list as $key=>$value){
-            Product::create([
+        //没有可选属性 判断
+        if(!array_key_exists('sku_attr_list',$attr_data)){
+            //没有可选属性 直接添加商品库存 商品id
+            $res=Product::create([
                 'goods_id'=>$goods_id,
-                'sku_attr_list'=>implode(',',$value),//属性值列表
                 'product_sn'=>$product_number,//商品货号
-                'product_number'=>$attr_data['product_number'][$key]//进货库存
+                'product_number'=>implode(',',$product_numbers),//进货库存
             ]);
-            $test=2;
+        }else{
+            //计算出有几个属性值
+            $size= count($attr_data['sku_attr_list']) / count($attr_data['product_number']);
+            // array_chunk() 把数组分割为新的数组块 每个属性对应
+            $sku_attr_list = array_chunk($attr_data['sku_attr_list'],$size);
+            //添加货品sku表商品数据
+            foreach ($sku_attr_list as $key=>$value){
+                $res=Product::create([
+                    'goods_id'=>$goods_id,
+                    'sku_attr_list'=>implode(',',$value),//属性值列表
+                    'product_sn'=>$product_number,//商品货号
+                    'product_number'=>$attr_data['product_number'][$key]//进货库存
+                ]);
+            }
         }
-        if($test==2){
+        if($res){
 //            return redirect('hadmin/sku_list');
             echo "<script>alert('货品入库成功');</script>";
         }
     }
-
-
 }
