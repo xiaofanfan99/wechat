@@ -19,6 +19,7 @@ class Tools {
             }
         }
     }
+
 //post获取
     public function curl_post($url,$data)
     {

@@ -121,6 +121,22 @@
                         </li>
                     </ul>
                 </li>
+                <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+                    <span class="ng-scope">阿凡达实时新闻</span>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-table"></i> <span class="nav-label">用户管理</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a class="J_menuItem" href="{{url('/api/newstset/regist')}}">用户注册</a></li>
+                        <li><a class="J_menuItem" href="{{url('/api/newstset/login')}}">用户登录</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-table"></i> <span class="nav-label">新闻更新</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a class="J_menuItem" href="{{url('/api/newstset/news')}}">新闻更新</a></li>
+                    </ul>
+                </li>
                 <li class="line dk"></li>
                 <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
                     <span class="ng-scope">api接口测试</span>

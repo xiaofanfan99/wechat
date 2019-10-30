@@ -36,7 +36,8 @@
 </nav>
 </nav>
     <script src='/jq.js'></script>
-    <script>   
+    <script>
+        //调用接口获取数据循环展示
         var url="http://www.wxlaravel.com/api/goods";
         $.ajax({
             url:url,
@@ -61,6 +62,7 @@
                }
             }
         })
+        //分页
         $(document).on('click','.pagination a',function(){
             var name=$('[name="name"]').val();
             var page=$(this).text();
@@ -74,7 +76,7 @@
                     var tr=$('<tr></tr>');
                     tr.append('<td>'+v.goods_id+'</td>');
                     tr.append('<td>'+v.goods_name+'</td>');
-                    tr.append('<td>'+v.goods_price+'</td>'); 
+                    tr.append('<td>'+v.goods_price+'</td>');
                    tr.append('<td><img width="120"  src="'+v.goods_img+'"></td>');
                     tr.append('<td><a href="">删除</a></td>');
                     $('.list').append(tr);
@@ -90,4 +92,4 @@
             })
         })
     </script>
-@endsection 
+@endsection

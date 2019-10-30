@@ -11,6 +11,7 @@ use App\Model\hadmin\Attr;
 use App\Model\hadmin\Goods;
 use App\Model\hadmin\GoodsAttr;
 use App\Model\hadmin\Product;
+use App\Tools\Aes;
 
 class GoodsController extends Controller
 {
@@ -19,6 +20,13 @@ class GoodsController extends Controller
      */
     public function goods_add()
     {
+        $key="0987654321987654";
+        $obj = new Aes($key); //秘钥
+        $data = "加油，你是最棒的！";//明文
+        echo $eStr = $obj->encrypt($data);  //加密后的密文
+//        echo "<hr>";
+//        echo $obj->decrypt($eStr);//解密后的明文
+
         //查询商品分类
         $cateData = Cate::get()->toArray();
         //查询商品类型
@@ -28,6 +36,8 @@ class GoodsController extends Controller
             'typeData'=>$typeData
         ]);
     }
+
+
     /*
      * 根据商品的类型 获取此类型下的属性
      * @param Request $request

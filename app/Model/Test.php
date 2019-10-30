@@ -15,4 +15,5 @@ class Test extends Model
     protected $primaryKey="test_id";//主键id
     public $timestamps = false;//关闭自动时间戳
     protected $guarded = [];//不能被批量赋值的属性
+//    protected $connection = 'mysql_api';//指定链接数据库
 }

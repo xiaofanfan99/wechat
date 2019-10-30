@@ -37,6 +37,11 @@ class UserController extends Controller
         return json_encode(['ret'=>1,'msg'=>'登录成功','token'=>$token]);
     }
 
+    /**
+     * @param Request $request
+     * @return false|mixed|string
+     * 获取用户信息
+     */
     public function getUser(Request $request)
     {
         $token =$request->input('token');
@@ -90,6 +95,19 @@ class UserController extends Controller
         if($res){
             return json_encode(['ret'=>001,'msg'=>'OK！']);
         }
+    }
+
+    /**
+     * 调用线上接口
+     */
+    public function user()
+    {
+        $name="fanhanxiao";
+        $age='19';
+        $sign=md5('1902a'.$name.$age);
+        $url="http://www.fanhanxiao.cn/api/hadmin/test?name={$name}&age={$age}&sign={$sign}";
+        $res=file_get_contents($url);
+        var_dump($res);
     }
 
 }

@@ -43,6 +43,37 @@ Route::any('/goods/weather', function () {
 Route::any('/api/weather','api\GoodsController@weather');//天气查询接口
 Route::resource('api/goods','api\GoodsController');//商品添加资源控制器接口
 
+
+//月考模拟微信开发接口
+Route::prefix('api/wechat')->group(function (){
+    Route::get('login','api\WechatController@login');//登录
+    Route::any('login_do','api\WechatController@login_do');//登录执行
+    Route::get('regist','api\WechatController@regist');//注册
+    Route::any('regist_do','api\WechatController@regist_do');//注册执行
+    Route::any('wechat_list','api\WechatController@wechat_list');//注册执行
+    Route::any('api_url','api\WechatController@api_url');//注册执行
+    Route::any('set_access_token','api\WechatController@set_access_token');//注册执行
+});
+
+//月考测试题 阿凡达数据
+Route::prefix('api/newstset')->group(function () {
+    Route::get('regist','api\NewsTestController@regist');//用户注册
+    Route::any('regist_do','api\NewsTestController@regist_do');//用户注册执行
+    Route::any('login','api\NewsTestController@login');//用户登录
+    Route::any('login_do','api\NewsTestController@login_do');//用户登录执行
+        Route::middleware('apiheader')->group(function () {
+            Route::any('news','api\NewsTestController@news');//调用新闻接口
+        });
+    Route::get('news_show','api\NewsTestController@news_show');//新闻展示
+    Route::get('news_list','api\NewsTestController@news_list');//新闻列表接口
+});
+
+//2019-10-26 周天作业 学生班级
+Route::get('student/class_list','api\StudentController@class_list');//班级列表
+Route::get('student/class_student_list','api\StudentController@class_student_list');//班级内学生展示列表
+
+
+// apiheader 解决了跨域问题
 Route::prefix('api/hadmin')->middleware('apiheader')->group(function () {
     Route::resource('new','hadmin\IndexController');//商品添加资源控制器接口
     Route::get('details','hadmin\IndexController@details');//前台商品详情页
@@ -50,6 +81,8 @@ Route::prefix('api/hadmin')->middleware('apiheader')->group(function () {
     Route::get('login','hadmin\UserController@login');//前台登录接口
     Route::get('get_user','hadmin\UserController@getUser');//前台传token 后台验证token
     Route::get('test','hadmin\UserController@test');//签名接口测试
+    Route::get('user','hadmin\UserController@user');//调用签名接口
+    //token登录
     Route::middleware('tokenlogin')->group(function () {
         Route::get('goods_cart_add', 'hadmin\IndexController@GoodsCartAdd');//购物车接口
         Route::get('cart_list', 'hadmin\IndexController@cart_list');//购物车列表

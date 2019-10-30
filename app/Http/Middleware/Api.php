@@ -28,11 +28,11 @@ class Api
             $num = 0;
         }
         $num += 1;
-        if($num > 50){//判断当缓存大于指定的次数 拦截
+        if($num > 10){//判断当缓存大于指定的次数 拦截
             echo json_encode(['ret'=>403,'msg'=>'访问接口次数频繁,请稍后']);die;
         }
         //根据ip缓存 cache
-        Cache::put($cache_name,$num,60);
+        Cache::put($cache_name,$num,60*24*24);//一天时间
         return $next($request);
     }
 }
